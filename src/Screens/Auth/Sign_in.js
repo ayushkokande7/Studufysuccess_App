@@ -5,9 +5,10 @@ import {Screen} from '../../Components/Screen';
 import {useDispatch} from 'react-redux';
 import {setUserLogin} from '../../Redux/Slices/InitialSlice';
 import useApi from '../../Components/Api/Api';
+import {useMutation} from '@tanstack/react-query';
+
 const Sign_in = ({navigation}) => {
   const dispatch = useDispatch();
-  const {post, loading} = useApi();
   const [form, setForm] = useState({
     email: '',
     password: '',
@@ -21,9 +22,21 @@ const Sign_in = ({navigation}) => {
       setForm({...form, [name]: value});
       setErrors({...errors, [name]: false});
     },
-    [form],
+    [form, errors],
   );
 
+  const {mutate, isPending} = useMutation({
+    mutationFn: data => useApi().post('/auth', data),
+    onSuccess: res => {
+      if (res.message) navigation.navigate('Otp', {email: form.email, type: 1});
+      dispatch(
+        setUserLogin({
+          token: res.data.token,
+          user: res.data.user,
+        }),
+      );
+    },
+  });
   const handleSubmit = useCallback(async () => {
     const newErrors = {};
     Object.keys(form).forEach(key => {
@@ -47,17 +60,9 @@ const Sign_in = ({navigation}) => {
     // If there are no errors, proceed with form submission
     if (!Object.values(newErrors).some(error => error)) {
       try {
-        const res = await post('/auth', (data = form));
-        if (res.message)
-          navigation.navigate('Otp', {email: form.email, type: 1});
-        dispatch(
-          setUserLogin({
-            token: res.data.token,
-            user: res.data.user,
-          }),
-        );
+        mutate(form);
       } catch (error) {
-        console.log('api error', error);
+        // console.log('api error', error);
       }
     }
   }, [form]);
@@ -115,7 +120,7 @@ const Sign_in = ({navigation}) => {
           </Pressable>
         </View>
         {/* <Text>{error}</Text> */}
-        <Button name="Sign in" onPress={handleSubmit} loading={loading} />
+        <Button name="Sign in" onPress={handleSubmit} loading={isPending} />
       </View>
     </Screen>
   );

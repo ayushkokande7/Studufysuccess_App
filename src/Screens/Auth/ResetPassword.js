@@ -3,9 +3,9 @@ import {Text, TextInput, Button} from '../../Components/Input';
 import {View, Image} from 'react-native';
 import {useState} from 'react';
 import useApi from '../../Components/Api/Api';
+import {useMutation} from '@tanstack/react-query';
 const ResetPassword = ({navigation, route}) => {
   const {email} = route.params;
-  const {post, loading} = useApi();
   const [form, setForm] = useState({
     password: '',
     cpassword: '',
@@ -18,6 +18,18 @@ const ResetPassword = ({navigation, route}) => {
     setForm({...form, [name]: value});
     setErrors({...errors, [name]: false});
   };
+
+  const {mutate, isPending} = useMutation({
+    mutationFn: data =>
+      useApi().post(
+        '/auth/reset',
+        (data = {email: email, password: form.password}),
+      ),
+
+    onSuccess: res => {
+      navigation.navigate('Signin');
+    },
+  });
 
   const handleSubmit = async () => {
     const newErrors = {};
@@ -37,14 +49,9 @@ const ResetPassword = ({navigation, route}) => {
     // If there are no errors, proceed with form submission
     if (!Object.values(newErrors).some(error => error)) {
       try {
-        const res = await post(
-          '/auth/reset',
-          (data = {email: email, password: form.password}),
-        );
-        // console.log('api res', res);
-        navigation.navigate('Signin');
+        mutate();
       } catch (error) {
-        console.log('api error', error);
+        // console.log('api error', error);
       }
     }
   };
@@ -83,7 +90,7 @@ const ResetPassword = ({navigation, route}) => {
           updateFormValue={updateFormValue}
           error={errors.cpassword}
         />
-        <Button name="Submit" onPress={handleSubmit} loading={loading} />
+        <Button name="Submit" onPress={handleSubmit} loading={isPending} />
       </View>
     </Screen>
   );

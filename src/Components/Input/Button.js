@@ -1,6 +1,5 @@
 import {Button} from 'react-native-paper';
 import {memo} from 'react';
-import {StyleSheet} from 'react-native';
 const InputButton = ({
   name,
   mode = 'contained',
@@ -8,7 +7,7 @@ const InputButton = ({
   loading = false,
   style,
 }) => {
-  console.log('button');
+  // console.log('button');
   return (
     <Button
       mode={mode}
@@ -18,17 +17,11 @@ const InputButton = ({
         fontSize: 20,
       }}
       onPress={onPress}
+      disabled={loading}
       loading={loading}>
       {!loading && name}
     </Button>
   );
 };
-
-const styles = StyleSheet.create({
-  button: {
-    flexDirection: 'row-reverse',
-    justifyContent: 'space-between',
-  },
-});
 
 export default memo(InputButton); // memoize InputButton;

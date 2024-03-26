@@ -6,8 +6,9 @@ import useApi from '../../../Components/Api/Api';
 import {ActivityIndicator} from 'react-native-paper';
 import {useDispatch} from 'react-redux';
 import {updateUserName} from '../../../Redux/Slices/InitialSlice';
+import {useMutation} from '@tanstack/react-query';
 const EditProfile = ({navigation}) => {
-  const {get, put, loading} = useApi();
+  const {get} = useApi();
   const [user, setUser] = useState();
   const dispatch = useDispatch();
   const [form, setForm] = useState({
@@ -32,14 +33,19 @@ const EditProfile = ({navigation}) => {
   const updateFormValue = ({name, value}) => {
     setForm({...form, [name]: value});
   };
-  const submit = async () => {
-    try {
-      await put('/user/update', (data = form));
-      dispatch(updateUserName({fname: form.fname, lname: form.lname}));
+
+  const {mutate, isPending} = useMutation({
+    mutationFn: data => useApi().put('/user/update', (data = form)),
+    onSuccess: res => {
+      if (res.status === 200) {
+        dispatch(updateUserName({fname: form.fname, lname: form.lname}));
+      }
       navigation.goBack();
-    } catch (err) {
-      // console.log('error', err);
-    }
+    },
+  });
+
+  const submit = async () => {
+    mutate();
   };
   return (
     <Screen>
@@ -73,7 +79,7 @@ const EditProfile = ({navigation}) => {
             <TextInput label="DOB" defaultValue={user?.dob} disabled />
             <TextInput label="Gender" defaultValue={user?.gender} disabled />
           </View>
-          <Button name="Update Profile" onPress={submit} loading={loading} />
+          <Button name="Update Profile" onPress={submit} loading={isPending} />
         </View>
       ) : (
         <ActivityIndicator size={40} style={{marginTop: 30}} />

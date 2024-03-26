@@ -23,11 +23,12 @@ const CourseDetails = ({route}) => {
           source={{uri: data?.image}}
           style={{
             height: 150,
-            width: '100%',
-            alignSelf: 'center',
+            // width: '100%',
+            // alignSelf: 'center',
             marginVertical: 10,
             borderRadius: 5,
           }}
+          objectFit="cover"
         />
       </SharedElement>
       <View

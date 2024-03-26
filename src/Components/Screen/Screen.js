@@ -14,16 +14,18 @@ function Screen({
   const theme = useTheme();
   if (list) {
     return (
-      <View
-        style={{
-          marginTop: NoHeader ? height : 0,
-          paddingHorizontal: windowPaddingHorizontal,
-          backgroundColor: theme.colors.background,
-          flexGrow: 1,
-          width: '100%',
-          ...style,
-        }}>
-        {children}
+      <View style={{flexGrow: 1, backgroundColor: theme.colors.background}}>
+        <View
+          style={{
+            marginTop: NoHeader ? height : 0,
+            paddingHorizontal: padding ? 0 : windowPaddingHorizontal,
+            backgroundColor: theme.colors.background,
+            flexGrow: 1,
+            width: '100%',
+            ...style,
+          }}>
+          {children}
+        </View>
       </View>
     );
   }
@@ -42,7 +44,6 @@ function Screen({
         keyboardShouldPersistTaps="handled">
         <View
           style={{
-            // marginTop: NoHeader ? height : 0,
             paddingHorizontal: padding ? 0 : windowPaddingHorizontal,
             flexGrow: 1,
             width: '100%',

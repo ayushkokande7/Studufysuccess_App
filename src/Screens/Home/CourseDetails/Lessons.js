@@ -13,7 +13,7 @@ const Lessons = ({route, navigation}) => {
   });
   const [lec, setLec] = useState(course.lecturec + 1);
   return (
-    <Screen padding={padding}>
+    <Screen list padding={padding}>
       {isLoading ? (
         <Text>Loading</Text>
       ) : (

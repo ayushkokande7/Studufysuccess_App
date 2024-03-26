@@ -5,26 +5,30 @@ import {useState, useRef} from 'react';
 import useApi from '../../Components/Api/Api';
 import {OtpInput} from 'react-native-otp-entry';
 import {useTheme} from 'react-native-paper';
+import {useMutation} from '@tanstack/react-query';
 const Otp = ({navigation, route}) => {
   const {colors} = useTheme();
   const {email, type} = route.params;
   const [opt, setOpt] = useState('');
-  const {post, loading} = useApi();
   const ref = useRef('');
-  const submit = async () => {
-    console.log(opt);
-    try {
-      const res = await post(
-        '/auth/otp',
-        (data = {email: email, otp: opt, type: type}),
-      );
-      // console.log('api res', res);
 
-      if (type == 0) navigation.replace('ResetPassword', {email: email});
-      else navigation.replace('Signin');
-    } catch (error) {
+  const {mutate, isPending} = useMutation({
+    mutationFn: data =>
+      useApi().post('/auth/otp', (data = {email: email, otp: opt, type: type})),
+    onSuccess: res => {
+      if (res.status === 200) {
+        if (type == 0) navigation.replace('ResetPassword', {email: email});
+        else navigation.replace('Signin');
+      }
+    },
+    onError: error => {
       ref.current.clear();
-      console.log('api error', error);
+      setOpt('');
+    },
+  });
+  const submit = async () => {
+    if (opt.length === 4) {
+      mutate();
     }
   };
 
@@ -44,7 +48,7 @@ const Otp = ({navigation, route}) => {
         </View>
         <View>
           <Text style={{marginVertical: 10}}>
-            An OTP has been sent to your Email address {email}
+            An OTP has been sent to your Email address- {email}
           </Text>
           <OtpInput
             numberOfDigits={4}
@@ -67,7 +71,7 @@ const Otp = ({navigation, route}) => {
               },
             }}
           />
-          <Button name="Verify" onPress={submit} loading={loading} />
+          <Button name="Verify" onPress={submit} loading={isPending} />
         </View>
       </View>
     </Screen>

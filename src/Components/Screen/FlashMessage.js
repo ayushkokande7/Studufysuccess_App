@@ -1,6 +1,5 @@
 import {showMessage} from 'react-native-flash-message';
 import {StatusBar} from 'react-native';
-import {memo} from 'react';
 const FlashMessage = ({message, type}) => {
   showMessage({
     message: message,
@@ -13,4 +12,4 @@ const FlashMessage = ({message, type}) => {
   });
 };
 
-export default memo(FlashMessage);
+export default FlashMessage;

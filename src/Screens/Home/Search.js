@@ -27,7 +27,7 @@ const Search = () => {
   }, [value]);
 
   return (
-    <Screen NoHeader>
+    <Screen list NoHeader>
       <SharedElement id={'searchbar'} style={{marginTop: 20}}>
         <Searchbar
           ref={ref}

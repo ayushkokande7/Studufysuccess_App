@@ -1,5 +1,5 @@
 import {createMaterialBottomTabNavigator} from 'react-native-paper/react-navigation';
-import {Home, Wishlist, Profile, MyCourse} from '../Screens/Home';
+import {Wishlist, Profile, MyCourse} from '../Screens/Home';
 import Main from '../Screens/Home/Main';
 import Micon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useTheme} from 'react-native-paper';

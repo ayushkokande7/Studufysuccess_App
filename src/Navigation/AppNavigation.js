@@ -1,7 +1,4 @@
-import {
-  createStackNavigator,
-  CardStyleInterpolators,
-} from '@react-navigation/stack';
+import {CardStyleInterpolators} from '@react-navigation/stack';
 import DrawerNavigation from './DrawerNavigation';
 import {
   Profile,
@@ -22,8 +19,8 @@ import {CustomerService} from '../Screens/Home/HelpCenter';
 import {AppBar} from '../Components/Navigation';
 import CompletedCourse from '../Screens/Home/MyCourse/Completed/CompletedCourse';
 import {createSharedElementStackNavigator} from 'react-navigation-shared-element';
+import NoInternet from '../Screens/Home/NoInternet';
 const AppNavigation = () => {
-  // const Stack = createStackNavigator();
   const Stack = createSharedElementStackNavigator();
   return (
     <Stack.Navigator
@@ -50,6 +47,8 @@ const AppNavigation = () => {
         component={CourseDetails}
         options={({route}) => ({
           title: route.params.data.course_name,
+          cardStyleInterpolator:
+            CardStyleInterpolators.forScaleFromCenterAndroid,
         })}
         sharedElements={(route, otherRoute, showing) => {
           return [`item.${route.params.data.course_id}.image`];
@@ -125,6 +124,11 @@ const AppNavigation = () => {
       <Stack.Screen
         name="Update"
         component={Update}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Nointernet"
+        component={NoInternet}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

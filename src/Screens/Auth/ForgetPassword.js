@@ -3,26 +3,28 @@ import {Text, TextInput, Button} from '../../Components/Input';
 import {View, Image} from 'react-native';
 import {useState} from 'react';
 import useApi from '../../Components/Api/Api';
+import {useMutation} from '@tanstack/react-query';
 const ForgetPassword = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [errors, setErrors] = useState(false);
-  const {post, loading} = useApi();
   const updateFormValue = ({value}) => {
     setEmail(value);
     setErrors(false);
   };
+  const {mutate, isPending} = useMutation({
+    mutationFn: data => useApi().post('/auth/forgot', (data = {email: email})),
+    onSuccess: res => {
+      if (res.status === 200)
+        navigation.replace('Otp', {email: email, type: 0});
+    },
+  });
+
   const submit = async () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email.trim())) {
       return setErrors(true);
     }
-    try {
-      const res = await post('/auth/forgot', (data = {email: email}));
-      console.log('api res', res);
-      navigation.replace('Otp', {email: email, type: 0});
-    } catch (error) {
-      console.log('api error', error);
-    }
+    mutate();
   };
 
   return (
@@ -51,7 +53,7 @@ const ForgetPassword = ({navigation}) => {
             error={errors}
             style={{marginBottom: 50}}
           />
-          <Button name="Send OTP" onPress={submit} loading={loading} />
+          <Button name="Send OTP" onPress={submit} loading={isPending} />
         </View>
       </View>
     </Screen>

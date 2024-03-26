@@ -1,10 +1,10 @@
 import {View} from 'react-native';
-import {useState} from 'react';
+import {useState, useCallback} from 'react';
 import {Button, TextInput, Text} from '../../Components/Input';
 import {Screen} from '../../Components/Screen';
 import useApi from '../../Components/Api/Api';
+import {useMutation} from '@tanstack/react-query';
 const Sign_up = ({navigation}) => {
-  const {post, loading} = useApi();
   const [form, setForm] = useState({
     fname: '',
     lname: '',
@@ -27,11 +27,20 @@ const Sign_up = ({navigation}) => {
     gender: false,
   });
 
-  const updateFormValue = ({name, value}) => {
-    setForm({...form, [name]: value});
-    setErrors({...errors, [name]: false});
-  };
-  const handleSubmit = async () => {
+  const updateFormValue = useCallback(({name, value}) => {
+    setForm(prevForm => ({...prevForm, [name]: value}));
+    setErrors(prevErrors => ({...prevErrors, [name]: false}));
+  }, []);
+
+  const {mutate, isPending} = useMutation({
+    mutationFn: data => useApi().post('/auth/signup', data),
+    onSuccess: res => {
+      if (res.status === 200)
+        navigation.replace('Otp', {email: form.email, type: 1});
+    },
+  });
+
+  const handleSubmit = useCallback(async () => {
     const newErrors = {};
     Object.keys(form).forEach(key => {
       if (!form[key].trim()) {
@@ -57,14 +66,10 @@ const Sign_up = ({navigation}) => {
 
     // If there are no errors, proceed with form submission
     if (!Object.values(newErrors).some(error => error)) {
-      try {
-        const res = await post('/auth/signup', (data = form));
-        navigation.replace('Otp', {email: form.email, type: 1});
-      } catch (error) {
-        console.log(error);
-      }
+      mutate(form);
+      console.log(error);
     }
-  };
+  }, [post]);
 
   return (
     <Screen style={{justifyContent: 'space-between'}}>
@@ -130,7 +135,7 @@ const Sign_up = ({navigation}) => {
           updateFormValue={updateFormValue}
           error={errors.cpassword}
         />
-        <Button name="Sign up" onPress={handleSubmit} loading={loading} />
+        <Button name="Sign up" onPress={handleSubmit} loading={isPending} />
       </View>
     </Screen>
   );

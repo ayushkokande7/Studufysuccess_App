@@ -3,8 +3,8 @@ import {Button, TextInput} from '../../../Components/Input';
 import {useState} from 'react';
 import {View} from 'react-native';
 import useApi from '../../../Components/Api/Api';
+import {useMutation} from '@tanstack/react-query';
 const ChangePassword = ({navigation}) => {
-  const {post, loading} = useApi();
   const [form, setForm] = useState({
     oldpassword: '',
     newpassword: '',
@@ -20,6 +20,18 @@ const ChangePassword = ({navigation}) => {
     setErrors({...errors, [name]: false});
   };
 
+  const {mutate, isPending} = useMutation({
+    mutationFn: data =>
+      useApi().post(
+        '/user/changepassword',
+        (data = {
+          password: form.oldpassword,
+          cpassword: form.newpassword,
+        }),
+      ),
+    onSuccess: res => navigation.goBack(),
+  });
+
   const handleSubmit = async () => {
     const newErrors = {};
     Object.keys(form).forEach(key => {
@@ -33,19 +45,7 @@ const ChangePassword = ({navigation}) => {
     setErrors(newErrors);
 
     if (!Object.values(newErrors).some(error => error)) {
-      try {
-        const res = await post(
-          '/user/changepassword',
-          (data = {
-            password: form.oldpassword,
-            cpassword: form.newpassword,
-          }),
-        );
-        navigation.goBack();
-        // console.log('api res', res);
-      } catch (error) {
-        // console.log('api error', error);
-      }
+      mutate();
     }
   };
 
@@ -80,7 +80,7 @@ const ChangePassword = ({navigation}) => {
             error={errors.confirmpassword}
           />
         </View>
-        <Button name="Submit" onPress={handleSubmit} loading={loading} />
+        <Button name="Submit" onPress={handleSubmit} loading={isPending} />
       </View>
     </Screen>
   );

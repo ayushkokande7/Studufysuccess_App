@@ -22,7 +22,7 @@ const SwiperComponent = ({row = false, data}) => {
         <SharedElement id={`item.${data?.course_id}.image`}>
           <Image
             source={{uri: data?.image}}
-            objectFit="contain"
+            // objectFit="contain"
             style={{height: 150, width: 120}}
           />
         </SharedElement>
