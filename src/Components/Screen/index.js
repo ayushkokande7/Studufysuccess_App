@@ -5,7 +5,9 @@ import BottomSheet from './BottonSheet';
 import CourseCard from './CourseCard';
 import LessonCard from './LessonCard';
 import Transaction from './Transaction,';
-
+import LiveClass from './LiveClass';
+import CourseSecion from './CourseSecion';
+import LiveClassSwiper from './LiveClassSwiper';
 export {
   Screen,
   Swiper,
@@ -14,4 +16,7 @@ export {
   CourseCard,
   LessonCard,
   Transaction,
+  LiveClass,
+  CourseSecion,
+  LiveClassSwiper,
 };

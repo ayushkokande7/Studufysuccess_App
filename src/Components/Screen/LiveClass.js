@@ -1,18 +1,16 @@
 import {View, FlatList} from 'react-native';
 import {Text} from '../Input';
-import {Swiper} from '../Screen';
+import {LiveClassSwiper} from '../Screen';
 import {useQuery} from '@tanstack/react-query';
 import useApi from '../Api/Api';
-const CourseSecion = ({name}) => {
-  const {data, isLoading} = useQuery({
-    queryKey: [`course-${name}`],
-    queryFn: () => useApi().get(`/course/${name}`),
+const CourseSecion = () => {
+  const {data} = useQuery({
+    queryKey: [`course-live-class`],
+    queryFn: () => useApi().get(`/course/live_class`),
   });
   return (
-    <View>
-      {isLoading ? (
-        <Text>Loading</Text>
-      ) : (
+    <>
+      {data && (
         <View>
           <Text
             size="medium"
@@ -20,19 +18,24 @@ const CourseSecion = ({name}) => {
               textTransform: 'capitalize',
               paddingLeft: 10,
             }}>
-            {name} Courses
+            Live Classes
           </Text>
           <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
             data={data?.data}
             keyExtractor={item => item.course_id}
-            renderItem={({item}) => <Swiper row data={item} />}
+            renderItem={({item}) => (
+              <LiveClassSwiper
+                row={data.data.length === 1 ? false : true}
+                data={item}
+              />
+            )}
             style={{marginVertical: 10}}
           />
         </View>
       )}
-    </View>
+    </>
   );
 };
 

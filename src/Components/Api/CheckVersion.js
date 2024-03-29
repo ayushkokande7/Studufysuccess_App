@@ -7,7 +7,6 @@ import NetInfo from '@react-native-community/netinfo';
 const CheckVersion = () => {
   const navigation = useNavigation();
   console.log('check version rerendered');
-
   const getCheckVersion = async () => {
     try {
       const currentVersion = await useApi().get('/user/version');

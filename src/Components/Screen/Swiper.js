@@ -1,12 +1,32 @@
 import {IconButton, TouchableRipple, useTheme} from 'react-native-paper';
 import {windowWidth} from '../../Utils/Dimentions';
 import {Text} from '../Input';
-import {View, StyleSheet, Image} from 'react-native';
+import {View, StyleSheet, Image, ActivityIndicator} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {SharedElement} from 'react-navigation-shared-element';
+import {useMutation} from '@tanstack/react-query';
+import useApi from '../Api/Api';
+import {useState} from 'react';
 const SwiperComponent = ({row = false, data}) => {
   const {colors} = useTheme();
+  const [fav, setFav] = useState(data.favourite_id == null ? false : true);
   const navigation = useNavigation();
+  const {mutate: addfav, isPending: p} = useMutation({
+    mutationFn: e =>
+      useApi().post('/course/favourite', {course_id: data.course_id}),
+    onSuccess: res => {
+      setFav(true);
+    },
+  });
+
+  const {mutate: revFav, isPending: q} = useMutation({
+    mutationFn: e =>
+      useApi().post('/course/remove_favourite', {fav_id: data.favourite_id}),
+    onSuccess: res => {
+      setFav(false);
+    },
+  });
+
   return (
     <TouchableRipple
       onPress={() => navigation.navigate('CourseDetails', {data: data})}
@@ -35,15 +55,31 @@ const SwiperComponent = ({row = false, data}) => {
             }}>
             <Text
               size=""
-              style={{backgroundColor: colors.primaryContainer, padding: 3}}>
+              style={{
+                backgroundColor: colors.primaryContainer,
+                padding: 3,
+              }}>
               {data?.categories}
             </Text>
-            <IconButton
-              icon="heart"
-              size={28}
-              iconColor={colors.primary}
-              onPress={() => {}}
-            />
+            <View>
+              {p || q ? (
+                <ActivityIndicator size={25} style={{padding: 13}} />
+              ) : fav ? (
+                <IconButton
+                  icon="heart"
+                  size={23}
+                  iconColor={colors.primary}
+                  onPress={revFav}
+                />
+              ) : (
+                <IconButton
+                  icon="heart-outline"
+                  size={23}
+                  iconColor={colors.primary}
+                  onPress={addfav}
+                />
+              )}
+            </View>
           </View>
           <View>
             <Text size="medium" style={{fontWeight: 'bold'}}>

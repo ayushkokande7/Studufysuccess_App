@@ -12,7 +12,7 @@ export default function BottomNavigation() {
         activeColor={theme.colors.primary}
         inactiveColor={theme.colors.onSurfaceVariant}
         barStyle={{
-          height: 55,
+          height: 50,
           justifyContent: 'center',
           backgroundColor: theme.colors.elevation.level1,
         }}
@@ -28,7 +28,7 @@ export default function BottomNavigation() {
             tabBarIcon: ({focused}) => (
               <Micon
                 name={focused ? 'home' : 'home-outline'}
-                size={26}
+                size={24}
                 color={
                   focused ? theme.colors.primary : theme.colors.onSurfaceVariant
                 }
@@ -44,7 +44,7 @@ export default function BottomNavigation() {
             tabBarIcon: ({focused}) => (
               <Micon
                 name={focused ? 'book-open-variant' : 'book-open-blank-variant'}
-                size={25}
+                size={23}
                 color={
                   focused ? theme.colors.primary : theme.colors.onSurfaceVariant
                 }
@@ -59,7 +59,7 @@ export default function BottomNavigation() {
             tabBarIcon: ({focused}) => (
               <Micon
                 name={focused ? 'heart' : 'heart-outline'}
-                size={26}
+                size={24}
                 color={
                   focused ? theme.colors.primary : theme.colors.onSurfaceVariant
                 }
@@ -74,7 +74,7 @@ export default function BottomNavigation() {
             tabBarIcon: ({focused}) => (
               <Micon
                 name={focused ? 'account-circle' : 'account-circle-outline'}
-                size={26}
+                size={24}
                 color={
                   focused ? theme.colors.primary : theme.colors.onSurfaceVariant
                 }

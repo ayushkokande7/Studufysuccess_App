@@ -3,7 +3,7 @@ import {Screen} from '../../Components/Screen';
 import {View, Image} from 'react-native';
 const NoInternet = () => {
   return (
-    <Screen NoHeader>
+    <Screen>
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <Image
           source={require('../../Assets/Images/noconnection.png')}

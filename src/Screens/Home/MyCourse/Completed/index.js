@@ -1,8 +1,8 @@
-import {FlatList} from 'react-native';
+import {FlatList, Image} from 'react-native';
 import {Screen, CourseCard} from '../../../../Components/Screen';
-import {Text} from '../../../../Components/Input';
 import {useQuery} from '@tanstack/react-query';
 import useApi from '../../../../Components/Api/Api';
+import {ActivityIndicator} from 'react-native-paper';
 export default function Complete({navigation}) {
   const {isLoading, data} = useQuery({
     queryKey: ['completed_course'],
@@ -12,9 +12,17 @@ export default function Complete({navigation}) {
   return (
     <Screen list>
       {isLoading ? (
-        <Text>Loading</Text>
-      ) : data?.data?.length == 0 ? (
-        <Text>No Course Completed</Text>
+        <ActivityIndicator size={40} style={{marginTop: 30}} />
+      ) : !!data?.data ? (
+        <Image
+          source={require('../../../../Assets/Images/nodata2.png')}
+          style={{
+            width: 250,
+            height: 250,
+            alignSelf: 'center',
+            marginTop: 100,
+          }}
+        />
       ) : (
         <FlatList
           data={data?.data}

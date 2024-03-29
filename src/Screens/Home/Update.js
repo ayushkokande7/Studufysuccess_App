@@ -33,7 +33,7 @@ const Update = () => {
           name="Update now"
           onPress={() => {
             Linking.openURL(
-              'https://play.google.com/store/apps/details?id=com.studifysuccess',
+              'https://play.google.com/store/apps/details?id=com.studifysuccess.courses',
             );
           }}
           style={{marginBottom: 20}}

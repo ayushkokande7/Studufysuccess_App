@@ -8,9 +8,9 @@ import {
 const windowPaddingHorizontal = responsiveWidth(3);
 
 // Responsive font sizes
-const bigText = responsiveFontSize(3);
-const mediumText = responsiveFontSize(2.5);
-const smallText = responsiveFontSize(2);
+const bigText = responsiveFontSize(2.8);
+const mediumText = responsiveFontSize(2.2);
+const smallText = responsiveFontSize(1.9);
 
 // Responsive Icon sizes
 const iconSize = responsiveFontSize(2.8);

@@ -1,4 +1,4 @@
-package com.studifysuccess
+package com.studifysuccess.courses
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 
 import android.app.Application

@@ -29,14 +29,18 @@ function Screen({
       </View>
     );
   }
+
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: theme.colors.background}}>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        backgroundColor: theme.colors.background,
+        marginTop: NoHeader ? height : 0,
+      }}>
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1,
           ...style,
-
-          marginTop: NoHeader ? height : 0,
         }}
         {...props}
         nestedScrollEnabled

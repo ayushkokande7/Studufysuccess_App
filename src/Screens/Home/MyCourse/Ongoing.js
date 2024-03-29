@@ -1,8 +1,8 @@
-import {FlatList} from 'react-native';
+import {FlatList, Image} from 'react-native';
 import {Screen, CourseCard} from '../../../Components/Screen';
-import {Text} from '../../../Components/Input';
 import {useQuery} from '@tanstack/react-query';
 import useApi from '../../../Components/Api/Api';
+import {ActivityIndicator} from 'react-native-paper';
 export default function Ongoing({navigation}) {
   const {isLoading, data} = useQuery({
     queryKey: ['pending_course'],
@@ -12,7 +12,17 @@ export default function Ongoing({navigation}) {
   return (
     <Screen list>
       {isLoading ? (
-        <Text>Loading</Text>
+        <ActivityIndicator size={40} style={{marginTop: 30}} />
+      ) : !data?.data ? (
+        <Image
+          source={require('../../../Assets/Images/nodata.png')}
+          style={{
+            width: 320,
+            height: 320,
+            alignSelf: 'center',
+            marginTop: 100,
+          }}
+        />
       ) : (
         <FlatList
           data={data?.data}

@@ -19,7 +19,6 @@ function InputText({
     setValue(val);
     updateFormValue({name, value: val});
   };
-  console.log('text', value);
   return (
     <TextInput
       mode="outlined"

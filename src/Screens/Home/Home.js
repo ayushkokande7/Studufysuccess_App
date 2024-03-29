@@ -2,13 +2,14 @@ import React from 'react';
 import {Screen} from '../../Components/Screen';
 import {View, StyleSheet} from 'react-native';
 import HomeHeader from '../../Components/Screen/HomeHeader';
-import CourseSecion from '../../Components/Screen/CourseSecion';
+import {CourseSecion, LiveClass} from '../../Components/Screen';
 
 const Home = () => {
   return (
     <Screen NoHeader>
       <HomeHeader />
       <View style={styles.banner}></View>
+      <LiveClass />
       <CourseSecion name="popular" />
       <CourseSecion name="trending" />
     </Screen>

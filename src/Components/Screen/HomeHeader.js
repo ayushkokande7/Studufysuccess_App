@@ -21,7 +21,7 @@ const HomeHeader = () => {
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <IconButton
             icon="sort-variant"
-            size={28}
+            size={25}
             onPress={() => {
               navigation.openDrawer();
             }}
@@ -36,7 +36,7 @@ const HomeHeader = () => {
         <IconButton
           icon="bell"
           color="white"
-          size={24}
+          size={23}
           onPress={() => {
             navigation.navigate('Notifications');
           }}
