@@ -13,6 +13,7 @@ import {
   TransactionDetails,
   Search,
 } from '../Screens/Home';
+import Meet from '../Screens/Home/Meet';
 import {Lessons} from '../Screens/Home/CourseDetails';
 import {VideoPlayer} from '../Screens/Home/MyCourse';
 import {CustomerService} from '../Screens/Home/HelpCenter';
@@ -129,6 +130,11 @@ const AppNavigation = () => {
       <Stack.Screen
         name="Nointernet"
         component={NoInternet}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Meet"
+        component={Meet}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

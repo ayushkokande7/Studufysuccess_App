@@ -10,7 +10,6 @@ export default function BottomNavigation() {
     <>
       <Tab.Navigator
         activeColor={theme.colors.primary}
-        inactiveColor={theme.colors.onSurfaceVariant}
         barStyle={{
           height: 50,
           justifyContent: 'center',

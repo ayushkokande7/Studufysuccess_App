@@ -13,7 +13,7 @@ export default function Complete({navigation}) {
     <Screen list>
       {isLoading ? (
         <ActivityIndicator size={40} style={{marginTop: 30}} />
-      ) : !!data?.data ? (
+      ) : data?.data.length == 0 ? (
         <Image
           source={require('../../../../Assets/Images/nodata2.png')}
           style={{

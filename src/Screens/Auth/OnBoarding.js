@@ -28,7 +28,7 @@ const Onboarding = ({navigation}) => {
       component:
         'Choose from a variety of courses \n with our best instructors.',
       img: require('../../Assets/Images/logo.png'),
-      color: theme.colors.secondaryContainer,
+      color: theme.colors.secondaryContainerc,
     },
     {
       id: '2',

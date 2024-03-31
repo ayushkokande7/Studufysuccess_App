@@ -4,7 +4,8 @@ import {Button, Text} from '../../../Components/Input';
 import {Screen} from '../../../Components/Screen';
 import {Avatar} from 'react-native-paper';
 import RazorPay from '../../../Utils/RazorPay';
-export default function About({navigation}) {
+export default function About({route}) {
+  const data = route.params;
   return (
     <Screen padding hideScrollbar showsVerticalScrollIndicator={false}>
       <View style={{marginTop: 10}}>
@@ -37,7 +38,10 @@ export default function About({navigation}) {
         </Text>
       </View>
       <View style={{marginVertical: 10}}>
-        <Button name="Enter Course" onPress={() => RazorPay(1200)} />
+        <Button
+          name="Enter Course"
+          onPress={() => RazorPay(data?.price, data?.course_id)}
+        />
       </View>
     </Screen>
   );

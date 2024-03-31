@@ -8,7 +8,11 @@ import {SharedElement} from 'react-navigation-shared-element';
 const CourseDetails = ({route}) => {
   const {data} = route.params;
   const tabs = [
-    {name: 'About', component: About},
+    {
+      name: 'About',
+      component: About,
+      data: {price: data?.price, course_id: data?.course_id},
+    },
     {
       name: 'Lessons',
       component: Lessons,
@@ -23,12 +27,10 @@ const CourseDetails = ({route}) => {
           source={{uri: data?.image}}
           style={{
             height: 150,
-            // width: '100%',
-            // alignSelf: 'center',
             marginVertical: 10,
-            borderRadius: 5,
+            borderRadius: 10,
+            objectFit: 'fill',
           }}
-          objectFit="cover"
         />
       </SharedElement>
       <View
@@ -38,19 +40,28 @@ const CourseDetails = ({route}) => {
           alignItems: 'center',
         }}>
         <Text size="large">{data?.course_name}</Text>
-        <IconButton icon="bookmark-outline" size={30} onPress={() => {}} />
+        <IconButton
+          icon={data?.favourite_id ? 'heart' : 'heart-outline'}
+          size={27}
+        />
       </View>
       <View
         style={{
-          marginVertical: 5,
           flexDirection: 'row',
           justifyContent: 'space-between',
         }}>
-        <Text size="medium" style={{fontWeight: 'bold', color: '#007171'}}>
-          {data?.price}
-        </Text>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Icon source="star" size={20} />
+        <View style={{flexDirection: 'row', alignItems: 'center', gap: 10}}>
+          <Text size="large" style={{color: '#007171'}}>
+            ₹{data?.price}
+          </Text>
+          <Text
+            size="medium"
+            style={{color: '#a1a0a0', textDecorationLine: 'line-through'}}>
+            ₹{data?.fake_price}
+          </Text>
+        </View>
+        <View style={{flexDirection: 'row', alignItems: 'center', gap: 5}}>
+          <Icon source="star" size={22} color="#ffa500" />
           <Text>{data?.ratings}</Text>
         </View>
       </View>
@@ -64,7 +75,7 @@ const CourseDetails = ({route}) => {
         }}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <Icon source="account-group" size={23} />
-          <Text> 56 Students</Text>
+          <Text> {data?.students_enrolled} Students</Text>
         </View>
 
         <Text>

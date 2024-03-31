@@ -1,4 +1,4 @@
-import {IconButton, TouchableRipple, useTheme} from 'react-native-paper';
+import {Icon, IconButton, TouchableRipple, useTheme} from 'react-native-paper';
 import {windowWidth} from '../../Utils/Dimentions';
 import {Text} from '../Input';
 import {View, StyleSheet, Image, ActivityIndicator} from 'react-native';
@@ -15,15 +15,15 @@ const SwiperComponent = ({row = false, data}) => {
     mutationFn: e =>
       useApi().post('/course/favourite', {course_id: data.course_id}),
     onSuccess: res => {
-      setFav(true);
+      if (res.status == 200) setFav(true);
     },
   });
 
   const {mutate: revFav, isPending: q} = useMutation({
     mutationFn: e =>
-      useApi().post('/course/remove_favourite', {fav_id: data.favourite_id}),
+      useApi().post('/course/remove_favourite', {course_id: data.course_id}),
     onSuccess: res => {
-      setFav(false);
+      if (res.status == 200) setFav(false);
     },
   });
 
@@ -42,11 +42,18 @@ const SwiperComponent = ({row = false, data}) => {
         <SharedElement id={`item.${data?.course_id}.image`}>
           <Image
             source={{uri: data?.image}}
-            // objectFit="contain"
-            style={{height: 150, width: 120}}
+            style={{
+              height: 150,
+              width: 120,
+              borderRadius: 15,
+              objectFit: 'fill',
+            }}
           />
         </SharedElement>
-        <View style={{flex: 1}}>
+        <View
+          style={{
+            flex: 1,
+          }}>
           <View
             style={{
               flexDirection: 'row',
@@ -57,7 +64,8 @@ const SwiperComponent = ({row = false, data}) => {
               size=""
               style={{
                 backgroundColor: colors.primaryContainer,
-                padding: 3,
+                padding: 5,
+                borderRadius: 5,
               }}>
               {data?.categories}
             </Text>
@@ -81,12 +89,30 @@ const SwiperComponent = ({row = false, data}) => {
               )}
             </View>
           </View>
-          <View>
+          <View style={{justifyContent: 'space-evenly', flex: 1}}>
             <Text size="medium" style={{fontWeight: 'bold'}}>
               {data?.course_name}
             </Text>
-            <Text>{data?.ratings}</Text>
-            <Text>{data?.ratings}</Text>
+            <View
+              style={{
+                flexDirection: 'row',
+                gap: 15,
+                alignItems: 'center',
+              }}>
+              <Text size="medium">₹{data?.price}</Text>
+              <Text
+                style={{color: '#a1a0a0', textDecorationLine: 'line-through'}}>
+                ₹{data?.fake_price}
+              </Text>
+            </View>
+            <View style={{flexDirection: 'row', gap: 10, alignItems: 'center'}}>
+              <Text>
+                <Icon source="star" size={20} color="#ffa500" />
+                {data?.ratings}
+              </Text>
+              <Text size="medium">|</Text>
+              <Text>{data?.students_enrolled} students</Text>
+            </View>
           </View>
         </View>
       </View>

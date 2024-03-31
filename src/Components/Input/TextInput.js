@@ -29,6 +29,7 @@ function InputText({
       secureTextEntry={showPassword}
       onChangeText={e => updateInputValue(e)}
       editable={!disabled}
+      autoCapitalize="none"
       right={
         rightIcon &&
         (showPassword ? (

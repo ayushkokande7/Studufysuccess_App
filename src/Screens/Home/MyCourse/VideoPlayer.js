@@ -70,7 +70,7 @@ const VideoPlayers = ({route, navigation}) => {
     };
   });
   return (
-    <Screen padding>
+    <Screen list padding>
       <VideoPlayer
         source={{
           uri: data.video,
