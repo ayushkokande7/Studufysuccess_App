@@ -1,10 +1,24 @@
-import React from 'react';
+import {FlatList, ActivityIndicator} from 'react-native';
 import {Screen, Transaction} from '../../../Components/Screen';
-const Payment = ({navigation}) => {
+import {useQuery} from '@tanstack/react-query';
+import useApi from '../../../Components/Api/Api';
+
+const Payment = () => {
+  const {data, isLoading} = useQuery({
+    queryKey: [`payment_data`],
+    queryFn: () => useApi().get(`/payment`),
+  });
   return (
-    <Screen>
-      <Transaction navigation={navigation} />
-      <Transaction />
+    <Screen list>
+      {isLoading ? (
+        <ActivityIndicator size={40} style={{marginTop: 30}} />
+      ) : (
+        <FlatList
+          data={data?.data}
+          keyExtractor={item => item.payment_id}
+          renderItem={({item}) => <Transaction data={item} />}
+        />
+      )}
     </Screen>
   );
 };

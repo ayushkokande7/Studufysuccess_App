@@ -1,31 +1,25 @@
-import {TouchableRipple} from 'react-native-paper';
-import {Text, Button} from '../Input';
+import {TouchableRipple, useTheme} from 'react-native-paper';
+import {Text} from '../Input';
 import {View, StyleSheet, Image} from 'react-native';
-
-const Transaction = ({navigation}) => {
+const Transaction = ({data}) => {
+  const {colors} = useTheme();
   return (
     <TouchableRipple
-      onPress={() => {
-        navigation.navigate('TransactionDetails');
-      }}
-      style={styles.box}>
+      style={[styles.box, {backgroundColor: colors.elevation.level2}]}>
       <View style={styles.wrapper}>
         <Image
-          source={require('../../Assets/Images/logo.png')}
-          style={{height: 120, width: 120}}
+          source={{uri: data.image}}
+          style={{height: 100, width: 100, objectFit: 'contain'}}
         />
         <View style={{flex: 1}}>
           <Text size="medium" style={{fontWeight: 'bold'}}>
-            Course Name
+            {data.course_name}
           </Text>
-          <Text
-            style={{
-              backgroundColor: '#e28427c6',
-              padding: 5,
-              alignSelf: 'flex-start',
-            }}>
-            Paid
+          <Text size="medium" style={{color: '#007171'}}>
+            ₹{data.amount}
           </Text>
+          <Text>{data.transaction_id}</Text>
+          <Text>{new Date(data.date).toLocaleString()}</Text>
         </View>
       </View>
     </TouchableRipple>
@@ -34,13 +28,13 @@ const Transaction = ({navigation}) => {
 
 const styles = StyleSheet.create({
   box: {
-    marginBottom: 10,
+    marginTop: 15,
     borderRadius: 10,
   },
   wrapper: {
     flexDirection: 'row',
     gap: 15,
-    padding: 5,
+    padding: 10,
     alignItems: 'center',
   },
 });

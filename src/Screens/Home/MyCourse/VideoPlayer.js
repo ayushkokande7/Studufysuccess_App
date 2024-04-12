@@ -5,47 +5,10 @@ import Orientation, {
   LANDSCAPE,
 } from 'react-native-orientation-locker';
 import {useEffect} from 'react';
-import {StatusBar, PermissionsAndroid} from 'react-native';
+import {StatusBar} from 'react-native';
 import useApi from '../../../Components/Api/Api';
 const VideoPlayers = ({route, navigation}) => {
   const {data, course, lec} = route.params;
-
-  const requestCameraAndMicrophonePermission = async () => {
-    try {
-      const cameraPermission = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.CAMERA,
-        {
-          title: 'Camera Permission',
-          message: 'App needs access to your camera.',
-          buttonPositive: 'OK',
-        },
-      );
-      const microphonePermission = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
-        {
-          title: 'Microphone Permission',
-          message: 'App needs access to your microphone.',
-          buttonPositive: 'OK',
-        },
-      );
-
-      if (
-        cameraPermission === PermissionsAndroid.RESULTS.GRANTED &&
-        microphonePermission === PermissionsAndroid.RESULTS.GRANTED
-      ) {
-        console.log('Camera and microphone permissions granted');
-      } else {
-        console.log('Camera and microphone permissions denied');
-      }
-    } catch (err) {
-      console.warn(err);
-    }
-  };
-
-  useEffect(() => {
-    requestCameraAndMicrophonePermission();
-  }, []);
-
   const updateProgress = async () => {
     const res = await useApi().post('/course/progress', {
       course_id: course.id,
@@ -60,7 +23,6 @@ const VideoPlayers = ({route, navigation}) => {
       StatusBar.setHidden(false);
     } else {
       Orientation.lockToLandscape();
-      StatusBar.setHidden(true);
     }
   };
   useEffect(() => {
@@ -70,7 +32,7 @@ const VideoPlayers = ({route, navigation}) => {
     };
   });
   return (
-    <Screen list padding>
+    <Screen padding>
       <VideoPlayer
         source={{
           uri: data.video,
@@ -83,10 +45,10 @@ const VideoPlayers = ({route, navigation}) => {
         fullscreen={true}
         onEnd={updateProgress}
         disableVolume
+        resizeMode="contain"
         onBack={() => navigation.goBack()}
         seekColor="#007171"
         title={data.title}
-        style={{flex: 1, backgroundColor: 'black'}}
       />
     </Screen>
   );

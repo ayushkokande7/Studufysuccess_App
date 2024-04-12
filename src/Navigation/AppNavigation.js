@@ -15,6 +15,7 @@ import {
   Search,
 } from '../Screens/Home';
 import Meet from '../Screens/Home/Meet';
+import Appreport from '../Screens/Home/Appreport';
 import {Lessons} from '../Screens/Home/CourseDetails';
 import {VideoPlayer} from '../Screens/Home/MyCourse';
 import {CustomerService} from '../Screens/Home/HelpCenter';
@@ -33,7 +34,7 @@ const AppNavigation = () => {
       <Stack.Screen
         options={{headerShown: false}}
         name="Main"
-        component={DrawerNavigation}
+        component={Main}
       />
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen
@@ -50,7 +51,7 @@ const AppNavigation = () => {
         options={({route}) => ({
           title: route.params.data.course_name,
           cardStyleInterpolator:
-            CardStyleInterpolators.forScaleFromCenterAndroid,
+            CardStyleInterpolators.forFadeFromBottomAndroid,
         })}
         sharedElements={(route, otherRoute, showing) => {
           return [`item.${route.params.data.course_id}.image`];
@@ -137,6 +138,11 @@ const AppNavigation = () => {
         name="Meet"
         component={Meet}
         options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Appreport"
+        component={Appreport}
+        options={{title: 'Report issue or bug'}}
       />
     </Stack.Navigator>
   );

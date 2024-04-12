@@ -25,6 +25,7 @@ const Wishlist = () => {
         />
       ) : (
         <FlatList
+          showsVerticalScrollIndicator={false}
           data={data?.data}
           keyExtractor={item => item.course_id}
           ListHeaderComponent={

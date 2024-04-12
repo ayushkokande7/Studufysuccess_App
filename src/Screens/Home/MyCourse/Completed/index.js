@@ -7,7 +7,6 @@ export default function Complete({navigation}) {
   const {isLoading, data} = useQuery({
     queryKey: ['completed_course'],
     queryFn: () => useApi().get('/course/completed'),
-    gcTime: 60 * 1000,
   });
   return (
     <Screen list>
@@ -39,6 +38,7 @@ export default function Complete({navigation}) {
                   data: {
                     lecturec: item.lecture_completed,
                     id: item.course_id,
+                    lecture: item.lectures,
                   },
                 });
               }}

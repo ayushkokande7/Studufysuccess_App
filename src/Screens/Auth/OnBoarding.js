@@ -5,8 +5,6 @@ import {Button, Text} from '../../Components/Input';
 import {useDispatch, useSelector} from 'react-redux';
 import {setTheme} from '../../Redux/Slices/InitialSlice';
 import {windowHeight, windowWidth} from '../../Utils/Dimentions';
-import SplashScreen from 'react-native-splash-screen';
-import {useEffect} from 'react';
 const Onboarding = ({navigation}) => {
   const theme = useTheme();
   const {isDark} = useSelector(state => state.initial);
@@ -17,9 +15,6 @@ const Onboarding = ({navigation}) => {
     dispatch(setTheme());
     setIsSwitchOn(!isSwitchOn);
   };
-  useEffect(() => {
-    SplashScreen.hide();
-  }, []);
 
   const data = [
     {
@@ -28,7 +23,7 @@ const Onboarding = ({navigation}) => {
       component:
         'Choose from a variety of courses \n with our best instructors.',
       img: require('../../Assets/Images/logo.png'),
-      color: theme.colors.secondaryContainerc,
+      color: theme.colors.secondaryContainer,
     },
     {
       id: '2',

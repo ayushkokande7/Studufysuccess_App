@@ -26,9 +26,9 @@ const LessonCard = ({title, duration, number, onPress, isLocked}) => {
             <Text style={{fontSize: 14}}>{duration}</Text>
           </View>
           {isLocked ? (
-            <Icon source="lock" size={30} />
+            <Icon source="lock" size={25} />
           ) : (
-            <Icon source="play-circle" size={35} color={theme.colors.primary} />
+            <Icon source="play-circle" size={30} color={theme.colors.primary} />
           )}
         </View>
       </View>
@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
   },
   title: {
     marginBottom: 5,
+    textTransform: 'capitalize',
   },
 });
 export default LessonCard;

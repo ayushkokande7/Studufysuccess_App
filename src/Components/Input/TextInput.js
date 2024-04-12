@@ -11,6 +11,7 @@ function InputText({
   keyboard = 'default',
   error = false,
   disabled = false,
+  multiline = 1,
 }) {
   const [value, setValue] = useState(defaultValue);
   const [showPassword, setShowPassword] = useState(rightIcon);
@@ -30,6 +31,8 @@ function InputText({
       onChangeText={e => updateInputValue(e)}
       editable={!disabled}
       autoCapitalize="none"
+      numberOfLines={multiline}
+      multiline={multiline > 1 ? true : false}
       right={
         rightIcon &&
         (showPassword ? (

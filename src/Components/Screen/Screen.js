@@ -1,7 +1,6 @@
 import {View, StatusBar, SafeAreaView, ScrollView} from 'react-native';
 import {windowPaddingHorizontal} from '../../Utils/Dimentions';
 import {useTheme} from 'react-native-paper';
-import {memo} from 'react';
 function Screen({
   children,
   style,
@@ -35,11 +34,12 @@ function Screen({
       style={{
         flex: 1,
         backgroundColor: theme.colors.background,
-        marginTop: NoHeader ? height : 0,
+        paddingTop: NoHeader ? height : 0,
       }}>
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1,
+          backgroundColor: theme.colors.background,
           ...style,
         }}
         {...props}
@@ -60,4 +60,4 @@ function Screen({
   );
 }
 
-export default memo(Screen);
+export default Screen;

@@ -7,7 +7,7 @@ const LiveClassSwiper = ({row = false, data}) => {
   return (
     <TouchableRipple
       onPress={() => {
-        navigation.navigate('WebView', {url: data?.link});
+        // navigation.navigate('Meet');
       }}
       style={{
         width: row ? windowWidth(84) : windowWidth(94),

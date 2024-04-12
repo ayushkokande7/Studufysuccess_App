@@ -6,12 +6,13 @@ import {
   DrawerItemList,
 } from '@react-navigation/drawer';
 import {Text} from '../Input';
-
+import {useSelector} from 'react-redux';
 const DrawerComponent = props => {
   const navigate = nav => {
     props.navigation.navigate(nav);
     props.navigation.closeDrawer();
   };
+  const {user} = useSelector(state => state.initial);
   return (
     <View style={{flex: 1}}>
       <DrawerContentScrollView {...props}>
@@ -23,41 +24,19 @@ const DrawerComponent = props => {
               alignItems: 'center',
             }}>
             <Avatar.Text size={60} label="Ax" />
-            <View>
-              <Text size="medium" style={{marginLeft: 8}}>
-                Ankit
-              </Text>
-              <Text size="small" style={{marginLeft: 8}}>
-                Budhori
-              </Text>
+            <View style={{marginLeft: 8}}>
+              <Text size="medium">{user.fname}</Text>
+              <Text size="small">{user.lname}</Text>
             </View>
           </View>
         </TouchableRipple>
-        <DrawerItemList {...props} />
-        {/* <Drawer.Item
-          label="Short Courses"
-          icon="book-open-page-variant-outline"
-          onPress={() => navigate('CourseDetails')}
-          style={{marginLeft: 5}}
-        />
-        <Drawer.Item
-          label="Resources"
-          icon="shield-search"
-          onPress={() => {}}
-          style={{marginLeft: 5}}
-        />
-        <Drawer.Item
-          label="Tearms and Conditions"
-          icon="shield-search"
-          onPress={() => {}}
-          style={{marginLeft: 5}}
-        />
-        <Drawer.Item
-          label="Privacy Policy"
-          icon="shield-search"
-          onPress={() => {}}
-          style={{marginLeft: 5}}
-        /> */}
+        <View style={{marginLeft: -10}}>
+          <Drawer.Item
+            label="Report Issue or Bug"
+            icon="bug"
+            onPress={() => navigate('Appreport')}
+          />
+        </View>
       </DrawerContentScrollView>
     </View>
   );

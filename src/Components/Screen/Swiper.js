@@ -43,7 +43,7 @@ const SwiperComponent = ({row = false, data}) => {
           <Image
             source={{uri: data?.image}}
             style={{
-              height: 150,
+              height: 140,
               width: 120,
               borderRadius: 15,
               objectFit: 'fill',

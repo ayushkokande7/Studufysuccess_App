@@ -21,13 +21,13 @@ const CourseDetails = ({route}) => {
     {name: 'Reviews', component: Reviews},
   ];
   return (
-    <Screen style={{height: '140%'}}>
+    <Screen>
       <SharedElement id={`item.${data?.course_id}.image`}>
         <Image
           source={{uri: data?.image}}
           style={{
             height: 150,
-            marginVertical: 10,
+            marginVertical: 5,
             borderRadius: 10,
             objectFit: 'fill',
           }}

@@ -15,7 +15,7 @@ const Profile = ({navigation}) => {
     setIsSwitchOn(!isSwitchOn);
   };
   return (
-    <Screen style={{justifyContent: 'center'}}>
+    <Screen NoHeader style={{justifyContent: 'center'}}>
       <View style={{alignItems: 'center'}}>
         <Avatar.Text size={100} label={user.fname[0] + user.lname[0]} />
         <Text size="medium" style={{marginTop: 10, fontWeight: 'bold'}}>

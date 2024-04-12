@@ -1,5 +1,5 @@
 import {createMaterialBottomTabNavigator} from 'react-native-paper/react-navigation';
-import {Wishlist, Profile, MyCourse} from '../Screens/Home';
+import {Wishlist, Profile, MyCourse, Home} from '../Screens/Home';
 import Main from '../Screens/Home/Main';
 import Micon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useTheme} from 'react-native-paper';
@@ -11,7 +11,7 @@ export default function BottomNavigation() {
       <Tab.Navigator
         activeColor={theme.colors.primary}
         barStyle={{
-          height: 50,
+          height: 55,
           justifyContent: 'center',
           backgroundColor: theme.colors.elevation.level1,
         }}
@@ -20,8 +20,8 @@ export default function BottomNavigation() {
           headerShown: false,
         }}>
         <Tab.Screen
-          name="Main"
-          component={Main}
+          name="Home"
+          component={Home}
           options={{
             title: 'Home',
             tabBarIcon: ({focused}) => (

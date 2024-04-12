@@ -1,4 +1,4 @@
-import {View} from 'react-native';
+import {View, Linking, Pressable} from 'react-native';
 import {useState, useCallback} from 'react';
 import {Button, TextInput, Text} from '../../Components/Input';
 import {Screen} from '../../Components/Screen';
@@ -40,7 +40,7 @@ const Sign_up = ({navigation}) => {
     },
   });
 
-  const handleSubmit = useCallback(async () => {
+  const handleSubmit = async () => {
     const newErrors = {};
     Object.keys(form).forEach(key => {
       if (!form[key].trim()) {
@@ -67,9 +67,8 @@ const Sign_up = ({navigation}) => {
     // If there are no errors, proceed with form submission
     if (!Object.values(newErrors).some(error => error)) {
       mutate(form);
-      console.log(error);
     }
-  }, [post]);
+  };
 
   return (
     <Screen style={{justifyContent: 'space-between'}}>
@@ -135,6 +134,32 @@ const Sign_up = ({navigation}) => {
           updateFormValue={updateFormValue}
           error={errors.cpassword}
         />
+        <View
+          style={{
+            marginVertical: 10,
+            flexDirection: 'row',
+            gap: 5,
+            flexWrap: 'wrap',
+          }}>
+          <Text size="">By signing up, you agree to our</Text>
+          <Pressable
+            onPress={() =>
+              Linking.openURL('https://www.studifysuccess.com/terms-conditions')
+            }>
+            <Text size="" style={{color: '#0c4e4e'}}>
+              Terms & Conditions
+            </Text>
+          </Pressable>
+          <Text size="">and</Text>
+          <Pressable
+            onPress={() =>
+              Linking.openURL('https://www.studifysuccess.com/privacy-policy')
+            }>
+            <Text size="" style={{color: '#0c4e4e'}}>
+              Privacy Policy
+            </Text>
+          </Pressable>
+        </View>
         <Button name="Sign up" onPress={handleSubmit} loading={isPending} />
       </View>
     </Screen>

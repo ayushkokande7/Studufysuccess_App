@@ -47,7 +47,7 @@ const Otp = ({navigation, route}) => {
           <Text size="large">Enter OTP?</Text>
         </View>
         <View>
-          <Text style={{marginVertical: 10}}>
+          <Text style={{marginBottom: 20}}>
             An OTP has been sent to your Email address- {email}
           </Text>
           <OtpInput

@@ -7,7 +7,7 @@ import {DarkTheme, LightTheme} from './Utils/Theme';
 import {NavigationContainer} from '@react-navigation/native';
 import {AuthNavigation, AppNavigation} from './Navigation';
 import {StatusBar} from 'react-native';
-import {useSelector} from 'react-redux';
+import {useSelector, shallowEqual} from 'react-redux';
 import {BottomSheet} from './Components/Screen';
 import FlashMessage from 'react-native-flash-message';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
@@ -23,7 +23,13 @@ const DarkMode = {
   colors: DarkTheme,
 };
 const App = () => {
-  const {isDark, isUserLoggedIn} = useSelector(state => state.initial);
+  const {isDark, isUserLoggedIn} = useSelector(
+    state => ({
+      isDark: state.initial.isDark,
+      isUserLoggedIn: state.initial.isUserLoggedIn,
+    }),
+    shallowEqual,
+  );
   const theme = isDark ? DarkMode : LightMode;
   return (
     <PaperProvider theme={theme}>

@@ -2,8 +2,6 @@ import DeviceInfo from 'react-native-device-info';
 import useApi from './Api';
 import {useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import SplashScreen from 'react-native-splash-screen';
-import NetInfo from '@react-native-community/netinfo';
 const CheckVersion = () => {
   const navigation = useNavigation();
   console.log('check version rerendered');
@@ -20,22 +18,10 @@ const CheckVersion = () => {
         navigation.replace('Update');
       }
     } catch (err) {}
-    SplashScreen.hide();
   };
 
   useEffect(() => {
     getCheckVersion();
-
-    const unsubscribe = NetInfo.addEventListener(state => {
-      if (!state.isConnected) {
-        navigation.reset({
-          index: 0,
-          routes: [{name: 'Nointernet'}],
-        });
-      }
-    });
-
-    return () => unsubscribe();
   }, []);
 };
 
