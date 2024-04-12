@@ -1,5 +1,6 @@
 import {CardStyleInterpolators} from '@react-navigation/stack';
 import DrawerNavigation from './DrawerNavigation';
+import Main from '../Screens/Home/Main';
 import {
   Profile,
   EditProfile,
