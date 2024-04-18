@@ -4,8 +4,7 @@ const CustomAppBar = ({navigation, route, options, back}) => {
   const {colors} = useTheme();
 
   return (
-    <Appbar.Header
-      style={{backgroundColor: colors.elevation.level1, elevation: 3}}>
+    <Appbar.Header style={{backgroundColor: colors.background, elevation: 3}}>
       {back ? (
         // <Appbar.BackAction onPress={navigation.goBack} />
         <IconButton icon="chevron-left" size={29} onPress={navigation.goBack} />

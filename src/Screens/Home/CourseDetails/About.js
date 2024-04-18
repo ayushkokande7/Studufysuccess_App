@@ -18,10 +18,9 @@ export default function About({route}) {
             alignItems: 'center',
             marginVertical: 10,
           }}>
-          <Avatar.Image size={60} source={{uri: 'https://i.pravatar.cc/300'}} />
+          <Avatar.Text size={50} label={data?.instructor_name[0]} />
           <View style={{marginLeft: 10}}>
-            <Text style={{fontWeight: 'bold'}}>Ankit Budhori</Text>
-            <Text>Senior UI/UX Designer</Text>
+            <Text style={{fontWeight: 'bold'}}>{data?.instructor_name}</Text>
           </View>
         </View>
       </View>
@@ -29,19 +28,17 @@ export default function About({route}) {
         <Text size="medium" style={{fontWeight: 'bold', marginBottom: 10}}>
           About Course
         </Text>
-        <Text>
-          loream ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. loream \n
-          ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. loream ipsum dolor
-          sit amet, consectetur adipiscing elit, sed do eiusmod
-        </Text>
+        <Text>{data.course_description}</Text>
       </View>
       <View style={{marginVertical: 10}}>
-        <Button
-          name="Enter Course"
-          onPress={() => RazorPay(data?.price, data?.course_id)}
-        />
+        {data?.payment_id != null ? (
+          <Button name="Already Purchased" />
+        ) : (
+          <Button
+            name={`Pay Now ₹${data?.price}`}
+            onPress={() => RazorPay(data?.price, data?.course_id)}
+          />
+        )}
       </View>
     </Screen>
   );

@@ -1,12 +1,10 @@
 import React from 'react';
-import {View} from 'react-native';
+import {View, Linking} from 'react-native';
 import {Drawer, Avatar, TouchableRipple} from 'react-native-paper';
-import {
-  DrawerContentScrollView,
-  DrawerItemList,
-} from '@react-navigation/drawer';
+import {DrawerContentScrollView} from '@react-navigation/drawer';
 import {Text} from '../Input';
 import {useSelector} from 'react-redux';
+import DeviceInfo from 'react-native-device-info';
 const DrawerComponent = props => {
   const navigate = nav => {
     props.navigation.navigate(nav);
@@ -15,28 +13,42 @@ const DrawerComponent = props => {
   const {user} = useSelector(state => state.initial);
   return (
     <View style={{flex: 1}}>
-      <DrawerContentScrollView {...props}>
-        <TouchableRipple onPress={() => navigate('Profile')}>
-          <View
-            style={{
-              flexDirection: 'row',
-              padding: 17,
-              alignItems: 'center',
-            }}>
-            <Avatar.Text size={60} label="Ax" />
-            <View style={{marginLeft: 8}}>
-              <Text size="medium">{user.fname}</Text>
-              <Text size="small">{user.lname}</Text>
+      <DrawerContentScrollView
+        {...props}
+        contentContainerStyle={{flex: 1, justifyContent: 'space-between'}}>
+        <View>
+          <TouchableRipple onPress={() => navigate('Profile')}>
+            <View
+              style={{
+                flexDirection: 'row',
+                padding: 15,
+                alignItems: 'center',
+                gap: 10,
+              }}>
+              <Avatar.Text size={60} label={user.fname[0] + user.lname[0]} />
+              <View>
+                <Text size="medium">{user.fname}</Text>
+                <Text size="small">{user.lname}</Text>
+              </View>
             </View>
-          </View>
-        </TouchableRipple>
-        <View style={{marginLeft: -10}}>
+          </TouchableRipple>
+
           <Drawer.Item
             label="Report Issue or Bug"
             icon="bug"
             onPress={() => navigate('Appreport')}
           />
         </View>
+        <TouchableRipple
+          onPress={() =>
+            Linking.openURL('https://www.linkedin.com/in/ankit-budhori/')
+          }
+          style={{padding: 5}}>
+          <View style={{alignItems: 'center'}}>
+            <Text>App Version : {DeviceInfo.getVersion()}</Text>
+            <Text>Crafted with ❤️ by Ankit</Text>
+          </View>
+        </TouchableRipple>
       </DrawerContentScrollView>
     </View>
   );

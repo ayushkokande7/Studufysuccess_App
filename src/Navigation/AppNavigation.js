@@ -1,6 +1,5 @@
 import {CardStyleInterpolators} from '@react-navigation/stack';
 import DrawerNavigation from './DrawerNavigation';
-import Main from '../Screens/Home/Main';
 import {
   Profile,
   EditProfile,
@@ -34,7 +33,7 @@ const AppNavigation = () => {
       <Stack.Screen
         options={{headerShown: false}}
         name="Main"
-        component={Main}
+        component={DrawerNavigation}
       />
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen

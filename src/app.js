@@ -12,6 +12,7 @@ import {BottomSheet} from './Components/Screen';
 import FlashMessage from 'react-native-flash-message';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import CheckAuth from './Components/Api/CheckAuth';
+import NoInternet from './Screens/Home/NoInternet';
 const queryClient = new QueryClient();
 const LightMode = {
   ...MD3LightTheme,
@@ -46,6 +47,7 @@ const App = () => {
       </NavigationContainer>
       <BottomSheet />
       <FlashMessage />
+      <NoInternet />
     </PaperProvider>
   );
 };

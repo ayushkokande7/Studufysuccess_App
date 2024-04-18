@@ -1,29 +1,30 @@
 import {Text} from '../../Components/Input';
-import {Screen} from '../../Components/Screen';
-import {View, Image} from 'react-native';
+import {useState, useEffect} from 'react';
+import {View} from 'react-native';
+import NetInfo from '@react-native-community/netinfo';
 const NoInternet = () => {
+  const [isConnected, setIsConnected] = useState(true);
+  console.log('netinfo');
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener(state => {
+      setIsConnected(state.isConnected);
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
   return (
-    <Screen>
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <Image
-          source={require('../../Assets/Images/noconnection.png')}
-          style={{height: 300, width: '100%'}}
-          resizeMode="contain"
-        />
-        <Text
-          style={{
-            fontWeight: 'bold',
-            fontSize: 32,
-            marginVertical: 15,
-          }}>
-          Whoops!
-        </Text>
-        <Text size="medium">
-          No Internet Connection was found. Check your internet connection or
-          try again later
-        </Text>
+    !isConnected && (
+      <View
+        style={{
+          backgroundColor: '#ff0000da',
+          padding: 5,
+          alignItems: 'center',
+        }}>
+        <Text>No Internet Connection</Text>
       </View>
-    </Screen>
+    )
   );
 };
 

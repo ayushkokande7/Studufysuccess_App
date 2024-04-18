@@ -11,14 +11,14 @@ const CourseDetails = ({route}) => {
     {
       name: 'About',
       component: About,
-      data: {price: data?.price, course_id: data?.course_id},
+      data: data,
     },
     {
       name: 'Lessons',
       component: Lessons,
       data: {data: {lecturec: 0, id: data?.course_id}, padding: true},
     },
-    {name: 'Reviews', component: Reviews},
+    // {name: 'Reviews', component: Reviews},
   ];
   return (
     <Screen>
@@ -38,11 +38,14 @@ const CourseDetails = ({route}) => {
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
+          height: 40,
         }}>
-        <Text size="large">{data?.course_name}</Text>
+        <Text size="large" numberOfLines={1}>
+          {data?.course_name}
+        </Text>
         <IconButton
           icon={data?.favourite_id ? 'heart' : 'heart-outline'}
-          size={27}
+          size={25}
         />
       </View>
       <View
@@ -70,8 +73,7 @@ const CourseDetails = ({route}) => {
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
-          marginVertical: 10,
-          marginBottom: 20,
+          marginVertical: 5,
         }}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <Icon source="account-group" size={23} />

@@ -1,15 +1,33 @@
 import {Screen} from '../../Components/Screen';
 import {useState} from 'react';
 import {View} from 'react-native';
-import {Text, Button, TextInput} from '../../Components/Input';
-const Appreport = () => {
+import {Button, TextInput} from '../../Components/Input';
+import useApi from '../../Components/Api/Api';
+import {useMutation} from '@tanstack/react-query';
+const Appreport = ({navigation}) => {
   const [Issue, setIssue] = useState('');
 
   const updateFormValue = ({name, value}) => {
     setIssue(value);
   };
+
+  const {mutate, isPending} = useMutation({
+    mutationFn: data =>
+      useApi().post(
+        '/user/report_bug',
+        (data = {
+          desc: Issue,
+        }),
+      ),
+    onSuccess: res => {
+      if (res.status === 200) navigation.goBack();
+    },
+  });
+
   const submit = () => {
-    console.log(Issue);
+    if (Issue.length < 20)
+      return alert('Issue should be atleast 20 characters long');
+    mutate();
   };
   return (
     <Screen>
@@ -19,7 +37,7 @@ const Appreport = () => {
           updateFormValue={updateFormValue}
           multiline={10}
         />
-        <Button name="Submit" onPress={submit} />
+        <Button name="Submit" onPress={submit} loading={isPending} />
       </View>
     </Screen>
   );

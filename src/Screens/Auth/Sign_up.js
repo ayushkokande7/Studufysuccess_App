@@ -136,9 +136,9 @@ const Sign_up = ({navigation}) => {
         />
         <View
           style={{
-            marginVertical: 10,
+            marginVertical: 5,
             flexDirection: 'row',
-            gap: 5,
+            gap: 4,
             flexWrap: 'wrap',
           }}>
           <Text size="">By signing up, you agree to our</Text>

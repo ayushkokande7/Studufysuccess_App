@@ -1,28 +1,20 @@
 import {Screen} from '../../Components/Screen';
-import {View, StyleSheet} from 'react-native';
 import HomeHeader from '../../Components/Screen/HomeHeader';
 import {CourseSecion, LiveClass} from '../../Components/Screen';
+import Banner from '../../Components/Screen/Banner';
 // import InAppReview from '../../Components/Screen/InAppReview';
 const Home = () => {
   console.log('Home renderded');
   return (
-    <Screen NoHeader>
+    <Screen NoHeader style={{marginBottom: 50}}>
       {/* <InAppReview /> */}
       <HomeHeader />
-      <View style={styles.banner}></View>
-      <LiveClass />
-      <CourseSecion name="popular" />
-      <CourseSecion name="trending" />
+      <Banner />
+      {/* <LiveClass /> */}
+      <CourseSecion name="new" />
+      <CourseSecion name="popular" horizontal={false} />
     </Screen>
   );
 };
-const styles = StyleSheet.create({
-  banner: {
-    height: 180,
-    width: '100%',
-    backgroundColor: '#52f275',
-    borderRadius: 15,
-    marginVertical: 15,
-  },
-});
+
 export default Home;
