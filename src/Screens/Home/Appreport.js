@@ -4,6 +4,7 @@ import {View} from 'react-native';
 import {Button, TextInput} from '../../Components/Input';
 import useApi from '../../Components/Api/Api';
 import {useMutation} from '@tanstack/react-query';
+import FlashMessage from '../../Components/Screen/FlashMessage';
 const Appreport = ({navigation}) => {
   const [Issue, setIssue] = useState('');
 
@@ -26,7 +27,10 @@ const Appreport = ({navigation}) => {
 
   const submit = () => {
     if (Issue.length < 20)
-      return alert('Issue should be atleast 20 characters long');
+      return FlashMessage({
+        message: 'Issue should be atleast 20 characters long',
+        type: 'danger',
+      });
     mutate();
   };
   return (

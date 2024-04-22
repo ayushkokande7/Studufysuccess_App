@@ -71,6 +71,7 @@ const EditProfile = ({navigation}) => {
             <TextInput
               label="Phone"
               name="phone"
+              maxLength={10}
               defaultValue={JSON.stringify(user?.phone)}
               updateFormValue={updateFormValue}
               keyboard="number-pad"

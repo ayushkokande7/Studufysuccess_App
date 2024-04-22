@@ -1,11 +1,10 @@
-import {Screen} from '../../../Components/Screen';
 import VideoPlayer from 'react-native-video-controls';
 import Orientation, {
   PORTRAIT,
   LANDSCAPE,
 } from 'react-native-orientation-locker';
 import {useEffect} from 'react';
-import {StatusBar} from 'react-native';
+import {StatusBar, View} from 'react-native';
 import useApi from '../../../Components/Api/Api';
 const VideoPlayers = ({route, navigation}) => {
   const {data, course, lec} = route.params;
@@ -32,7 +31,18 @@ const VideoPlayers = ({route, navigation}) => {
     };
   });
   return (
-    <Screen padding>
+    <View
+      style={{
+        flex: 1,
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'black',
+      }}>
       <VideoPlayer
         source={{
           uri: data.video,
@@ -50,7 +60,7 @@ const VideoPlayers = ({route, navigation}) => {
         seekColor="#007171"
         title={data.title}
       />
-    </Screen>
+    </View>
   );
 };
 

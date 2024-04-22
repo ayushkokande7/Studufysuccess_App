@@ -11,7 +11,64 @@ const CourseSecion = ({name, horizontal = true}) => {
   return (
     <View style={{marginBottom: 10}}>
       {isLoading ? (
-        <Text>Loading</Text>
+        <View
+          style={{
+            width: '100%',
+            backgroundColor: '#92919174',
+            borderRadius: 10,
+            height: 190,
+            padding: 10,
+            flexDirection: 'row',
+            gap: 10,
+          }}>
+          <View
+            style={{
+              width: '40%',
+              height: '100%',
+              backgroundColor: '#9e9e9ea5',
+              borderRadius: 10,
+            }}></View>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'space-around',
+            }}>
+            <View style={{gap: 10}}>
+              <View
+                style={{
+                  width: 100,
+                  height: 30,
+                  backgroundColor: '#808080a5',
+                  borderRadius: 10,
+                }}
+              />
+              <View
+                style={{
+                  width: '100%',
+                  height: 35,
+                  backgroundColor: '#8080808b',
+                  borderRadius: 10,
+                }}
+              />
+            </View>
+            <View
+              style={{
+                width: 150,
+                height: 30,
+                backgroundColor: '#8080808b',
+                borderRadius: 10,
+              }}
+            />
+            <View
+              style={{
+                width: '100%',
+                height: 30,
+                backgroundColor: '#808080a5',
+                borderRadius: 10,
+              }}
+            />
+          </View>
+        </View>
       ) : (
         data?.data?.length != 0 && (
           <View>

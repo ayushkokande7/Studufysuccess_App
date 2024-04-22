@@ -5,7 +5,11 @@ const CompletedCourse = ({route}) => {
   const {data} = route.params;
   const tabs = [
     {name: 'Lessons', component: Lessons, data: {data: data}},
-    {name: 'Certificate', component: Certificate},
+    {
+      name: 'Certificate',
+      component: Certificate,
+      data: {certificate: data.certificate},
+    },
   ];
 
   return <TopNavigation tabs={tabs} />;

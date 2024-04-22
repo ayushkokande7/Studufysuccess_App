@@ -1,10 +1,16 @@
-import {View, Linking, Pressable} from 'react-native';
+import {View, Linking, Pressable, Keyboard} from 'react-native';
 import {useState, useCallback} from 'react';
 import {Button, TextInput, Text} from '../../Components/Input';
 import {Screen} from '../../Components/Screen';
 import useApi from '../../Components/Api/Api';
 import {useMutation} from '@tanstack/react-query';
+import {DateTimePickerAndroid} from '@react-native-community/datetimepicker';
+import DropDown from 'react-native-paper-dropdown';
+import {useTheme} from 'react-native-paper';
+import FlashMessage from '../../Components/Screen/FlashMessage';
 const Sign_up = ({navigation}) => {
+  const {colors} = useTheme();
+  const [dropdown, setDropdown] = useState(false);
   const [form, setForm] = useState({
     fname: '',
     lname: '',
@@ -15,7 +21,6 @@ const Sign_up = ({navigation}) => {
     dob: '',
     gender: '',
   });
-
   const [errors, setErrors] = useState({
     fname: false,
     lname: false,
@@ -24,8 +29,17 @@ const Sign_up = ({navigation}) => {
     password: false,
     cpassword: false,
     dob: false,
-    gender: false,
   });
+
+  const showCalender = () => {
+    DateTimePickerAndroid.open({
+      value: new Date(),
+      onChange: (e, date) => {
+        Keyboard.dismiss();
+        updateFormValue({name: 'dob', value: date.toLocaleDateString('en-GB')});
+      },
+    });
+  };
 
   const updateFormValue = useCallback(({name, value}) => {
     setForm(prevForm => ({...prevForm, [name]: value}));
@@ -50,22 +64,29 @@ const Sign_up = ({navigation}) => {
       }
     });
 
-    // Check for valid email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     newErrors.email = !emailRegex.test(form.email.trim());
 
-    // Check for valid phone number format
     const phoneRegex = /^[0-9]{10}$/;
     newErrors.phone = !phoneRegex.test(form.phone.trim());
 
-    // Check if passwords match
     newErrors.cpassword = form.password !== form.cpassword;
-
-    // Set errors state
+    newErrors.gender = false;
     setErrors(newErrors);
 
-    // If there are no errors, proceed with form submission
     if (!Object.values(newErrors).some(error => error)) {
+      if (form.gender === '') {
+        return FlashMessage({
+          message: 'Please select your gender',
+          type: 'danger',
+        });
+      }
+      if (form.password.length < 8) {
+        return FlashMessage({
+          message: 'Password must be at least 8 characters long',
+          type: 'danger',
+        });
+      }
       mutate(form);
     }
   };
@@ -103,23 +124,38 @@ const Sign_up = ({navigation}) => {
         <TextInput
           label="Phone"
           name="phone"
+          maxLength={10}
           updateFormValue={updateFormValue}
           keyboard="number-pad"
           error={errors.phone}
         />
         <TextInput
-          label="DOB (DD/MM/YYYY)"
+          label="DOB"
           name="dob"
-          updateFormValue={updateFormValue}
-          keyboard="number-pad"
+          onPress={() => showCalender()}
+          defaultValue={form.dob}
           error={errors.dob}
         />
-        <TextInput
-          label="Gender"
-          name="gender"
-          updateFormValue={updateFormValue}
-          error={errors.gender}
-        />
+        <View style={{marginBottom: 15}}>
+          <DropDown
+            label="Gender"
+            mode="outlined"
+            visible={dropdown}
+            showDropDown={() => setDropdown(true)}
+            onDismiss={() => setDropdown(false)}
+            value={form.gender}
+            setValue={value => {
+              updateFormValue({name: 'gender', value});
+            }}
+            list={[
+              {label: 'Male', value: 'Male'},
+              {label: 'Female', value: 'Female'},
+              {label: 'Other', value: 'Other'},
+            ]}
+            dropDownItemTextStyle={{color: colors.onBackground}}
+            error={errors.gender}
+          />
+        </View>
         <TextInput
           label="Password"
           name="password"

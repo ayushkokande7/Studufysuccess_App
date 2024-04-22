@@ -3,10 +3,14 @@ import {Screen, CourseCard} from '../../../../Components/Screen';
 import {useQuery} from '@tanstack/react-query';
 import useApi from '../../../../Components/Api/Api';
 import {ActivityIndicator} from 'react-native-paper';
+import {useFocusEffect} from '@react-navigation/native';
 export default function Complete({navigation}) {
-  const {isLoading, data} = useQuery({
+  const {isLoading, data, refetch} = useQuery({
     queryKey: ['completed_course'],
     queryFn: () => useApi().get('/course/completed'),
+  });
+  useFocusEffect(() => {
+    refetch();
   });
   return (
     <Screen list>
@@ -39,6 +43,7 @@ export default function Complete({navigation}) {
                     lecturec: item.lecture_completed,
                     id: item.course_id,
                     lecture: item.lectures,
+                    certificate: item.certificate,
                   },
                 });
               }}

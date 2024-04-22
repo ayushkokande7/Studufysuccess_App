@@ -7,12 +7,11 @@ const InputButton = ({
   loading = false,
   style,
 }) => {
-  // console.log('button');
   return (
     <Button
       mode={mode}
       style={{marginBottom: 10, ...style, borderRadius: 5}}
-      contentStyle={{height: 55}}
+      contentStyle={{padding: 7}}
       labelStyle={{
         fontSize: 20,
       }}
@@ -24,4 +23,4 @@ const InputButton = ({
   );
 };
 
-export default memo(InputButton); // memoize InputButton;
+export default memo(InputButton);

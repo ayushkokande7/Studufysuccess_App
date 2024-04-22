@@ -27,6 +27,9 @@ export default function RazorPay(amount, course_id) {
       );
     })
     .catch(error => {
-      FlashMessage({message: error?.error?.reason, type: 'danger'});
+      FlashMessage({
+        message: error?.error?.reason || 'Something went wrong',
+        type: 'danger',
+      });
     });
 }

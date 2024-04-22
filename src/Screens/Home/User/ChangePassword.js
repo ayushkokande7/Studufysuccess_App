@@ -4,6 +4,7 @@ import {useState} from 'react';
 import {View} from 'react-native';
 import useApi from '../../../Components/Api/Api';
 import {useMutation} from '@tanstack/react-query';
+import FlashMessage from '../../../Components/Screen/FlashMessage';
 const ChangePassword = ({navigation}) => {
   const [form, setForm] = useState({
     oldpassword: '',
@@ -29,7 +30,9 @@ const ChangePassword = ({navigation}) => {
           cpassword: form.newpassword,
         }),
       ),
-    onSuccess: res => navigation.goBack(),
+    onSuccess: res => {
+      if (res.status === 200) navigation.goBack();
+    },
   });
 
   const handleSubmit = async () => {
@@ -45,6 +48,12 @@ const ChangePassword = ({navigation}) => {
     setErrors(newErrors);
 
     if (!Object.values(newErrors).some(error => error)) {
+      if (form.newpassword.length < 8) {
+        return FlashMessage({
+          message: 'New Password must be at least 8 characters long',
+          type: 'danger',
+        });
+      }
       mutate();
     }
   };

@@ -6,7 +6,6 @@ import {useDispatch} from 'react-redux';
 import {setUserLogin} from '../../Redux/Slices/InitialSlice';
 import useApi from '../../Components/Api/Api';
 import {useMutation} from '@tanstack/react-query';
-
 const Sign_in = ({navigation}) => {
   const dispatch = useDispatch();
   const [form, setForm] = useState({
@@ -119,7 +118,6 @@ const Sign_in = ({navigation}) => {
             <Text>Don't have an account? Sign up</Text>
           </Pressable>
         </View>
-        {/* <Text>{error}</Text> */}
         <Button name="Sign in" onPress={handleSubmit} loading={isPending} />
       </View>
     </Screen>

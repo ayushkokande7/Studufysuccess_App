@@ -4,7 +4,6 @@ import {View} from 'react-native';
 import NetInfo from '@react-native-community/netinfo';
 const NoInternet = () => {
   const [isConnected, setIsConnected] = useState(true);
-  console.log('netinfo');
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener(state => {
       setIsConnected(state.isConnected);
@@ -22,7 +21,7 @@ const NoInternet = () => {
           padding: 5,
           alignItems: 'center',
         }}>
-        <Text>No Internet Connection</Text>
+        <Text style={{color: 'white'}}>No Internet Connection</Text>
       </View>
     )
   );

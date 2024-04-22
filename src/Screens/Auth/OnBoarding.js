@@ -29,7 +29,7 @@ const Onboarding = ({navigation}) => {
       id: '2',
       title: 'Learn on your schedule',
       component:
-        'Anytime, anywhere live classes as \n well as recorded leactures.',
+        'Anytime, anywhere live classes as \n well as recorded lectures.',
       img: require('../../Assets/Images/college.png'),
       color: theme.colors.tertiaryContainer,
     },

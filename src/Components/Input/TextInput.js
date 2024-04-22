@@ -1,11 +1,13 @@
-import {useState, memo} from 'react';
+import {useState, memo, useEffect} from 'react';
 import {TextInput} from 'react-native-paper';
 
 function InputText({
   name,
   label,
+  onPress,
   style,
   defaultValue,
+  maxLength,
   updateFormValue,
   rightIcon = false,
   keyboard = 'default',
@@ -13,8 +15,12 @@ function InputText({
   disabled = false,
   multiline = 1,
 }) {
-  const [value, setValue] = useState(defaultValue);
+  const [value, setValue] = useState();
   const [showPassword, setShowPassword] = useState(rightIcon);
+
+  useEffect(() => {
+    setValue(defaultValue);
+  }, [defaultValue]);
 
   const updateInputValue = val => {
     setValue(val);
@@ -23,6 +29,8 @@ function InputText({
   return (
     <TextInput
       mode="outlined"
+      onPressIn={onPress}
+      maxLength={maxLength}
       keyboardType={keyboard}
       label={label}
       value={value}

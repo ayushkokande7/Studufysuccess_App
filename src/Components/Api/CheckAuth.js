@@ -2,8 +2,8 @@ import axios from 'axios';
 import {useDispatch, useSelector} from 'react-redux';
 import {setUserLogout} from '../../Redux/Slices/InitialSlice';
 
-const BASE_URL = 'https://mkwp9t-3000.csb.app/api/';
-// const BASE_URL = 'https://ss-backend-xi.vercel.app/api/';
+// const BASE_URL = 'https://mkwp9t-3000.csb.app/api/';
+const BASE_URL = 'https://ss-backend-xi.vercel.app/api/';
 
 export default function CheckAuth() {
   const dispatch = useDispatch();
