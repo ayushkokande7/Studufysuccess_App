@@ -3,7 +3,6 @@ import {IconButton, Searchbar} from 'react-native-paper';
 import {Text} from '../Input';
 import {useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
-import {SharedElement} from 'react-navigation-shared-element';
 
 var myDate = new Date();
 var hrs = myDate.getHours();
@@ -42,12 +41,10 @@ const HomeHeader = () => {
           }}
         />
       </View>
-      <SharedElement id={'searchbar'}>
-        <Searchbar
-          placeholder="Search"
-          onPressIn={() => navigation.navigate('Search')}
-        />
-      </SharedElement>
+      <Searchbar
+        placeholder="Search"
+        onPressIn={() => navigation.navigate('Search')}
+      />
     </View>
   );
 };

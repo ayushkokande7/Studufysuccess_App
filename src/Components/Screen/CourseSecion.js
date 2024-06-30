@@ -16,7 +16,7 @@ const CourseSecion = ({name, horizontal = true}) => {
             width: '100%',
             backgroundColor: '#92919174',
             borderRadius: 10,
-            height: 190,
+            height: 180,
             padding: 10,
             flexDirection: 'row',
             gap: 10,
@@ -37,16 +37,16 @@ const CourseSecion = ({name, horizontal = true}) => {
               <View
                 style={{
                   width: 100,
-                  height: 30,
-                  backgroundColor: '#808080a5',
+                  height: 25,
+                  backgroundColor: '#a4a4a4a5',
                   borderRadius: 10,
                 }}
               />
               <View
                 style={{
                   width: '100%',
-                  height: 35,
-                  backgroundColor: '#8080808b',
+                  height: 30,
+                  backgroundColor: '#8d8c8c8b',
                   borderRadius: 10,
                 }}
               />
@@ -62,8 +62,8 @@ const CourseSecion = ({name, horizontal = true}) => {
             <View
               style={{
                 width: '100%',
-                height: 30,
-                backgroundColor: '#808080a5',
+                height: 25,
+                backgroundColor: '#808080b6',
                 borderRadius: 10,
               }}
             />

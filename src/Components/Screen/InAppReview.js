@@ -3,16 +3,12 @@ import InAppReview from 'react-native-in-app-review';
 const InAppReviews = () => {
   InAppReview.RequestInAppReview()
     .then(hasFlowFinishedSuccessfully => {
-      // when return true in android it means user finished or close review flow
       console.log('InAppReview in android', hasFlowFinishedSuccessfully);
 
-      // when return true in ios it means review flow lanuched to user.
-      // 1- you have option to do something ex: (navigate Home page) (in android).
-      // 2- you have option to do something,
-      // ex: (save date today to lanuch InAppReview after 15 days) (in android and ios).
-
-      // 3- another option:
       if (hasFlowFinishedSuccessfully) {
+        //in react native 0.62.2
+        InAppReview.open();
+
         // do something for ios
         // do something for android
       }

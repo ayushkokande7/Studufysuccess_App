@@ -12,7 +12,7 @@ const ForgetPassword = ({navigation}) => {
     setErrors(false);
   };
   const {mutate, isPending} = useMutation({
-    mutationFn: data => useApi().post('/auth/forgot', (data = {email: email})),
+    mutationFn: data => useApi().post('/auth/sendOtp', (data = {email: email})),
     onSuccess: res => {
       if (res.status === 200)
         navigation.replace('Otp', {email: email, type: 0});

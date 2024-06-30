@@ -16,7 +16,11 @@ const EditProfile = ({navigation}) => {
     lname: '',
     phone: '',
   });
-
+  const [errors, setErrors] = useState({
+    fname: false,
+    lname: false,
+    phone: false,
+  });
   useEffect(() => {
     const getUser = async () => {
       const res = await get('/user');
@@ -32,6 +36,7 @@ const EditProfile = ({navigation}) => {
 
   const updateFormValue = ({name, value}) => {
     setForm({...form, [name]: value});
+    setErrors({...errors, [name]: false});
   };
 
   const {mutate, isPending} = useMutation({
@@ -45,7 +50,25 @@ const EditProfile = ({navigation}) => {
   });
 
   const submit = async () => {
-    mutate();
+    const newErrors = {};
+    Object.keys(form).forEach(key => {
+      if (!form[key]) {
+        newErrors[key] = true;
+      } else {
+        newErrors[key] = false;
+      }
+    });
+
+    newErrors.fname = form.fname.length < 3;
+    newErrors.lname = form.lname.length < 3;
+    newErrors.phone = form.phone.length <= 9;
+    setErrors(newErrors);
+
+    if (!Object.values(newErrors).some(error => error)) {
+      try {
+        mutate();
+      } catch (error) {}
+    }
   };
   return (
     <Screen>
@@ -59,6 +82,7 @@ const EditProfile = ({navigation}) => {
                 defaultValue={user?.fname}
                 updateFormValue={updateFormValue}
                 style={{flex: 1}}
+                error={errors.fname}
               />
               <TextInput
                 label="Last Name"
@@ -66,6 +90,7 @@ const EditProfile = ({navigation}) => {
                 defaultValue={user?.lname}
                 updateFormValue={updateFormValue}
                 style={{flex: 1}}
+                error={errors.lname}
               />
             </View>
             <TextInput
@@ -75,6 +100,7 @@ const EditProfile = ({navigation}) => {
               defaultValue={JSON.stringify(user?.phone)}
               updateFormValue={updateFormValue}
               keyboard="number-pad"
+              error={errors.phone}
             />
             <TextInput label="Email" defaultValue={user?.email} disabled />
             <TextInput label="DOB" defaultValue={user?.dob} disabled />

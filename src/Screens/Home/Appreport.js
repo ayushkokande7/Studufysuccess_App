@@ -37,7 +37,7 @@ const Appreport = ({navigation}) => {
     <Screen>
       <View style={{flex: 1, justifyContent: 'space-between', marginTop: 10}}>
         <TextInput
-          label="Describe App Issue or Bug Briefly"
+          label="Report a issue or suggest a feature/improvement"
           updateFormValue={updateFormValue}
           multiline={10}
         />

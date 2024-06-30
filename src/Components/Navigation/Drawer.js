@@ -1,5 +1,4 @@
-import React from 'react';
-import {View, Linking} from 'react-native';
+import {View} from 'react-native';
 import {Drawer, Avatar, TouchableRipple} from 'react-native-paper';
 import {DrawerContentScrollView} from '@react-navigation/drawer';
 import {Text} from '../Input';
@@ -32,23 +31,22 @@ const DrawerComponent = props => {
               </View>
             </View>
           </TouchableRipple>
-
+          <Drawer.Item
+            label="Notes"
+            icon="file-document"
+            onPress={() => navigate('Notes')}
+          />
           <Drawer.Item
             label="Report Issue or Bug"
             icon="bug"
             onPress={() => navigate('Appreport')}
           />
         </View>
-        <TouchableRipple
-          onPress={() =>
-            Linking.openURL('https://www.linkedin.com/in/ankit-budhori/')
-          }
-          style={{padding: 5}}>
-          <View style={{alignItems: 'center'}}>
-            <Text>App Version : {DeviceInfo.getVersion()}</Text>
-            <Text>Crafted with ❤️ by Ankit</Text>
-          </View>
-        </TouchableRipple>
+
+        <View style={{alignItems: 'center', padding: 5}}>
+          <Text>App Version : {DeviceInfo.getVersion()}</Text>
+          <Text>Crafted with ❤️ in India</Text>
+        </View>
       </DrawerContentScrollView>
     </View>
   );

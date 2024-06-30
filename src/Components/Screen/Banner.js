@@ -7,6 +7,7 @@ const Banner = () => {
     queryKey: [`course-image`],
     queryFn: () => useApi().get(`/course/banner`),
   });
+
   return (
     <TouchableRipple
       style={styles.banner}

@@ -1,31 +1,13 @@
-import {Icon, IconButton, TouchableRipple, useTheme} from 'react-native-paper';
+import {Icon, TouchableRipple, useTheme} from 'react-native-paper';
 import {windowWidth} from '../../Utils/Dimentions';
 import {Text} from '../Input';
-import {View, StyleSheet, Image, ActivityIndicator} from 'react-native';
+import {View, StyleSheet, Image} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {SharedElement} from 'react-navigation-shared-element';
-import {useMutation} from '@tanstack/react-query';
-import useApi from '../Api/Api';
-import {useState} from 'react';
+import LikeButton from './LikeButton';
+
 const SwiperComponent = ({row = false, data}) => {
   const {colors} = useTheme();
-  const [fav, setFav] = useState(data.favourite_id == null ? false : true);
   const navigation = useNavigation();
-  const {mutate: addfav, isPending: p} = useMutation({
-    mutationFn: e =>
-      useApi().post('/course/favourite', {course_id: data.course_id}),
-    onSuccess: res => {
-      if (res.status == 200) setFav(true);
-    },
-  });
-
-  const {mutate: revFav, isPending: q} = useMutation({
-    mutationFn: e =>
-      useApi().post('/course/remove_favourite', {course_id: data.course_id}),
-    onSuccess: res => {
-      if (res.status == 200) setFav(false);
-    },
-  });
 
   return (
     <TouchableRipple
@@ -39,17 +21,15 @@ const SwiperComponent = ({row = false, data}) => {
         marginBottom: !row ? 20 : 0,
       }}>
       <View style={styles.container}>
-        <SharedElement id={`item.${data?.course_id}.image`}>
-          <Image
-            source={{uri: data?.image}}
-            style={{
-              height: 140,
-              width: 120,
-              borderRadius: 15,
-              objectFit: 'fill',
-            }}
-          />
-        </SharedElement>
+        <Image
+          source={{uri: data?.image}}
+          style={{
+            height: 140,
+            width: 120,
+            borderRadius: 15,
+            objectFit: 'fill',
+          }}
+        />
         <View
           style={{
             flex: 1,
@@ -69,25 +49,7 @@ const SwiperComponent = ({row = false, data}) => {
               }}>
               {data?.categories}
             </Text>
-            <View>
-              {p || q ? (
-                <ActivityIndicator size={25} style={{padding: 13}} />
-              ) : fav ? (
-                <IconButton
-                  icon="heart"
-                  size={23}
-                  iconColor={colors.primary}
-                  onPress={revFav}
-                />
-              ) : (
-                <IconButton
-                  icon="heart-outline"
-                  size={23}
-                  iconColor={colors.primary}
-                  onPress={addfav}
-                />
-              )}
-            </View>
+            <LikeButton favid={data?.favourite_id} courseid={data?.course_id} />
           </View>
           <View style={{justifyContent: 'space-evenly', flex: 1}}>
             <Text size="medium" style={{fontWeight: 'bold'}}>

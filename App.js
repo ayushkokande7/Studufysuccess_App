@@ -7,8 +7,11 @@ import {useEffect} from 'react';
 import SplashScreen from 'react-native-splash-screen';
 const App = () => {
   useEffect(() => {
-    SplashScreen.hide();
+    setTimeout(() => {
+      SplashScreen.hide();
+    }, 1500);
   }, []);
+
   return (
     <Provider store={Store}>
       <PersistGate loading={null} persistor={persistor}>

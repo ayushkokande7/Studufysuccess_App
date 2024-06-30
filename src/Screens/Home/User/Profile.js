@@ -17,11 +17,11 @@ const Profile = ({navigation}) => {
   return (
     <Screen NoHeader style={{justifyContent: 'center'}}>
       <View style={{alignItems: 'center'}}>
-        <Avatar.Text size={100} label={user.fname[0] + user.lname[0]} />
+        <Avatar.Text size={100} label={user?.fname[0] + user?.lname[0]} />
         <Text size="medium" style={{marginTop: 10, fontWeight: 'bold'}}>
-          {user.fname + ' ' + user.lname}
+          {user?.fname + ' ' + user?.lname}
         </Text>
-        <Text>{user.email}</Text>
+        <Text>{user?.email}</Text>
       </View>
       <View style={{marginTop: 10}}>
         <CardHorizontal

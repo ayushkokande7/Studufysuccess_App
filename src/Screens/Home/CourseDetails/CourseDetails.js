@@ -1,10 +1,10 @@
 import {View, Image} from 'react-native';
 import {Text} from '../../../Components/Input';
 import {Screen} from '../../../Components/Screen';
-import {Icon, IconButton, Divider} from 'react-native-paper';
+import {Icon, Divider} from 'react-native-paper';
 import {TopNavigation} from '../../../Navigation';
 import {Lessons, About, Reviews} from './index';
-import {SharedElement} from 'react-navigation-shared-element';
+import LikeButton from '../../../Components/Screen/LikeButton';
 const CourseDetails = ({route}) => {
   const {data} = route.params;
   const tabs = [
@@ -22,17 +22,15 @@ const CourseDetails = ({route}) => {
   ];
   return (
     <Screen>
-      <SharedElement id={`item.${data?.course_id}.image`}>
-        <Image
-          source={{uri: data?.image}}
-          style={{
-            height: 150,
-            marginVertical: 5,
-            borderRadius: 10,
-            objectFit: 'fill',
-          }}
-        />
-      </SharedElement>
+      <Image
+        source={{uri: data?.image}}
+        style={{
+          height: 150,
+          marginVertical: 5,
+          borderRadius: 10,
+          objectFit: 'fill',
+        }}
+      />
       <View
         style={{
           flexDirection: 'row',
@@ -43,10 +41,7 @@ const CourseDetails = ({route}) => {
         <Text size="large" numberOfLines={1}>
           {data?.course_name}
         </Text>
-        <IconButton
-          icon={data?.favourite_id ? 'heart' : 'heart-outline'}
-          size={25}
-        />
+        <LikeButton favid={data?.favourite_id} courseid={data?.course_id} />
       </View>
       <View
         style={{

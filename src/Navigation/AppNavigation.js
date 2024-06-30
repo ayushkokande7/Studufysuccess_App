@@ -20,10 +20,13 @@ import {VideoPlayer} from '../Screens/Home/MyCourse';
 import {CustomerService} from '../Screens/Home/HelpCenter';
 import {AppBar} from '../Components/Navigation';
 import CompletedCourse from '../Screens/Home/MyCourse/Completed/CompletedCourse';
-import {createSharedElementStackNavigator} from 'react-navigation-shared-element';
+import {createStackNavigator} from '@react-navigation/stack';
 import NoInternet from '../Screens/Home/NoInternet';
+import Notes from '../Screens/Home/Notes/Notes';
+import Pdf from '../Screens/Home/Notes/Pdf';
+
 const AppNavigation = () => {
-  const Stack = createSharedElementStackNavigator();
+  const Stack = createStackNavigator();
   return (
     <Stack.Navigator
       screenOptions={{
@@ -138,6 +141,8 @@ const AppNavigation = () => {
         component={Meet}
         options={{headerShown: false}}
       />
+      <Stack.Screen name="Notes" component={Notes} />
+      <Stack.Screen name="Pdf" component={Pdf} options={{headerShown: false}} />
       <Stack.Screen
         name="Appreport"
         component={Appreport}

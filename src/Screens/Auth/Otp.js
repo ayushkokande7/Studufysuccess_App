@@ -1,11 +1,13 @@
 import {Screen} from '../../Components/Screen';
 import {Text, Button} from '../../Components/Input';
-import {View, Image} from 'react-native';
+import {View, Image, Keyboard} from 'react-native';
 import {useState, useRef} from 'react';
 import useApi from '../../Components/Api/Api';
 import {OtpInput} from 'react-native-otp-entry';
 import {useTheme} from 'react-native-paper';
 import {useMutation} from '@tanstack/react-query';
+import ResendOTP from '../../Components/Screen/ResendOTP';
+
 const Otp = ({navigation, route}) => {
   const {colors} = useTheme();
   const {email, type} = route.params;
@@ -14,10 +16,14 @@ const Otp = ({navigation, route}) => {
 
   const {mutate, isPending} = useMutation({
     mutationFn: data =>
-      useApi().post('/auth/otp', (data = {email: email, otp: opt, type: type})),
+      useApi().post(
+        '/auth/verifyOtp',
+        (data = {email: email, otp: opt, type: type}),
+      ),
     onSuccess: res => {
       if (res.status === 200) {
-        if (type == 0) navigation.replace('ResetPassword', {email: email});
+        if (type == 0)
+          navigation.replace('ResetPassword', {email: email, o: opt});
         else navigation.replace('Signin');
       }
     },
@@ -44,21 +50,22 @@ const Otp = ({navigation, route}) => {
               objectFit: 'contain',
             }}
           />
-          <Text size="large">Enter OTP?</Text>
+          <Text size="large">Enter 4 Digit Code</Text>
         </View>
         <View>
           <Text style={{marginBottom: 20}}>
-            An OTP has been sent to your Email address- {email}
+            Enter the 4 digit code that you received on your email. {email}
           </Text>
           <OtpInput
             numberOfDigits={4}
             focusColor={colors.primary}
             focusStickBlinkingDuration={500}
             ref={ref}
+            onFilled={() => Keyboard.dismiss()}
             onTextChange={text => setOpt(text)}
             theme={{
               containerStyle: {
-                width: '80%',
+                width: '90%',
                 marginBottom: 20,
                 alignSelf: 'center',
               },
@@ -71,6 +78,7 @@ const Otp = ({navigation, route}) => {
               },
             }}
           />
+          <ResendOTP email={email} />
           <Button name="Verify" onPress={submit} loading={isPending} />
         </View>
       </View>

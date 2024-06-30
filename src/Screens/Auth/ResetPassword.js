@@ -5,7 +5,7 @@ import {useState} from 'react';
 import useApi from '../../Components/Api/Api';
 import {useMutation} from '@tanstack/react-query';
 const ResetPassword = ({navigation, route}) => {
-  const {email} = route.params;
+  const {email, o} = route.params;
   const [form, setForm] = useState({
     password: '',
     cpassword: '',
@@ -22,10 +22,9 @@ const ResetPassword = ({navigation, route}) => {
   const {mutate, isPending} = useMutation({
     mutationFn: data =>
       useApi().post(
-        '/auth/reset',
-        (data = {email: email, password: form.password}),
+        '/auth/resetPassword',
+        (data = {email: email, password: form.password, otp: o}),
       ),
-
     onSuccess: res => {
       navigation.navigate('Signin');
     },

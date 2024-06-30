@@ -59,9 +59,9 @@ const ContactUs = ({navigation}) => {
           title="Youtube"
           leftIcon="youtube"
           onPress={() => {
-            Linking.openURL('vnd.youtube://channel/studifysuccess').catch(err =>
-              console.error('youtube', err),
-            );
+            Linking.openURL(
+              'vnd.youtube://channel/UC4Ko9fNzq9iA1O3qhxHrWIw',
+            ).catch(err => console.error('youtube', err));
           }}
         />
       </View>
